@@ -17,11 +17,8 @@ overflow:auto;
  } 
  </style> 
 
-<<<<<<< HEAD
-<title>...name...</title>
-=======
 <title>日小记</title>
->>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
+
 </head>
 <body>
 <%@include file="./include/head.jsp" %>
