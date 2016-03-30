@@ -6,6 +6,10 @@
 <title>blog login</title>
 </head>
 <body>
+<<<<<<< HEAD
 <jsp:forward page="login.action"></jsp:forward>
+=======
+<jsp:forward page="blog/index.action"></jsp:forward>
+>>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 </body>
 </html>

@@ -28,7 +28,11 @@ public class Blog implements Serializable {
 			do {
 				cList.add(contentList.get(i));
 				i--;
+<<<<<<< HEAD
 			} while (i > 0);
+=======
+			} while (i > -1);
+>>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 			return cList;
 		}
 	}
