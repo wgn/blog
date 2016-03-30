@@ -1,0 +1,1 @@
+<c:if test="${ad!=null}"><div class="ad" id="top_ad"><!--ad_top_start-->${ad}<!--ad_top_end--></div></c:if>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="./html5vast/html5vast.css" />
+<script type="text/javascript" src="./html5vast/html5vast.js"></script>
+</head>
+<body>
+	<VIDEO  id='test-video' width="500" height="350" controls>
+		<source src='./vid.mp4' type='video/mp4' />
+	</VIDEO>
+	<script>
+		//Test HTML5VAST
+		//var my_vast_url = 'http://ad3.liverail.com/?LR_PUBLISHER_ID=1331&LR_CAMPAIGN_ID=229&LR_SCHEMA=vast2';
+		var my_vast_url = './uc_ad.xml';
+		html5vast("test-video", my_vast_url, {
+			ad_caption : ''
+		});
+	</script>
+</body>
+</html>

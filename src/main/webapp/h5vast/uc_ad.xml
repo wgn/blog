@@ -1,0 +1,64 @@
+<VAST version="2.0">
+<Ad sequence="1" id="10001561">
+<InLine>
+<AdSystem>vuclip</AdSystem>
+<AdTitle>vuclip inhouse vast</AdTitle>
+<Description>vuclip inhouse vast</Description>
+<Impression id="vuclip">
+<![CDATA[
+http://ad0.vuclip.com/advast?appid=1&adid=10001561&vastid=0
+]]>
+</Impression>
+<Creatives>
+<Creative AdID="10001561" id="10001561" sequence="1">
+<Linear>
+<Duration>00:30</Duration>
+<TrackingEvents>
+<Tracking event="start">
+<![CDATA[
+http://ad0.vuclip.com/advast?appid=1&adid=10001561&vastid=1
+]]>
+</Tracking>
+<Tracking event="firstQuartile">
+<![CDATA[
+http://ad0.vuclip.com/advast?appid=1&adid=10001561&vastid=2
+]]>
+</Tracking>
+<Tracking event="midpoint">
+<![CDATA[
+http://ad0.vuclip.com/advast?appid=1&adid=10001561&vastid=3
+]]>
+</Tracking>
+<Tracking event="thirdQuartile">
+<![CDATA[
+http://ad0.vuclip.com/advast?appid=1&adid=10001561&vastid=4
+]]>
+</Tracking>
+<Tracking event="complete">
+<![CDATA[
+http://ad0.vuclip.com/advast?appid=1&adid=10001561&vastid=5
+]]>
+</Tracking>
+</TrackingEvents>
+<VideoClicks>
+<ClickTracking id="vuclip">
+<![CDATA[
+http://m.vuclip.com/adc?sn=1&uid=7768340647&aid=10001561&cid=-1&url=http%3A%2F%2Fad0.vuclip.com%2Fadvast%3Fappid%3D1%26adid%3D10001561%26vastid%3D6
+]]>
+</ClickTracking>
+<ClickThrough>
+http://m.vuclip.com
+</ClickThrough>
+</VideoClicks>
+<MediaFiles>
+<MediaFile delivery="progressive" bitrate="100" type="video/mp4"><![CDATA[http://192.168.2.99:8080/review/h5vast/vid.mp4]]></MediaFile>
+</MediaFiles>
+</Linear>
+</Creative>
+<Creative AdID="10001561" id="10001561" sequence="1">
+<CompanionAds/>
+</Creative>
+</Creatives>
+</InLine>
+</Ad>
+</VAST>

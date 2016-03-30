@@ -1,0 +1,1 @@
+<c:if test="${ad_bot_other != null}"><div class="ad"><c:out value="${ad_bot_other}" escapeXml="false"/></div></c:if>

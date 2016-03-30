@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+</head>
+<body>
+
+<script>var inDapIF = false;</script>
+<script type="text/javascript" src="https://www.googletagservices.com/tag/js/gpt.js">
+</script>
+<script>
+  window.fbAsyncInit = function() {
+    FB.Event.subscribe(
+      'ad.loaded',
+      function(placementId) {
+        //console.log('Audience Network ad loaded');
+       document.getElementById('ad_root').style.display = 'block';
+      }
+    );
+    FB.Event.subscribe(
+      'ad.error',
+      function(errorCode, errorMessage, placementId) {
+        //console.log('Audience Network error (' + errorCode + ') ' + errorMessage);
+	//googletag.pubads().definePassback('/28065041/mweb_VideoListing_Smart_Native_Clean_FB', [300, 250]).display();
+        //document.getElementById('ad_root').style.display = 'block';
+         googletag.pubads().definePassback('/28065041/mweb_VideoList_Smart_Bot_Native_Clean_FB', [300, 250]).display();
+      }
+    );
+  };
+(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk/xfbml.ad.js#xfbml=1&version=v2.5&appId=817674768358581";
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+</script>
+ <fb:ad placementid="817674768358581_833569063435818" format="native" nativeadid="ad_root" testmode="false"></fb:ad>
+<div id="ad_root" style="display:none;font-size: 14px;height: 250px;line-height: 16px;position: relative;width: 300px;background:#FFF; font-family:helvetica,arial,san-serif;">
+  <a class="fbAdLink">
+    <div class="fbAdMedia thirdPartyMediaClass" style="height: 157px;
+    width: 300px;"></div>
+    <div class="fbAdTitle thirdPartyTitleClass" style=" font-weight: 600;font-size: 16px;margin: 8px 0 4px 0;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;padding:0 2%;"></div>
+    <div class="fbAdBody thirdPartyBodyClass" style=" display: -webkit-box;height: 32px;-webkit-line-clamp: 2;overflow: hidden; padding:0 2%;"></div>
+    <div class="fbAdCallToAction thirdPartyCallToActionClass" style="color:#FF8400;font-family: sans-serif;font-weight: 600;margin-top: 8px;padding:0 2%;"></div>
+  </a>
+</div>
+<input type="button" value="Load more" onclick="test();"/>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+

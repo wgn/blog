@@ -1,0 +1,1 @@
+<c:if test="${ad_top_other != null}"><div class="ad"><c:out value="${ad_top_other}" escapeXml="false"/></div></c:if>
