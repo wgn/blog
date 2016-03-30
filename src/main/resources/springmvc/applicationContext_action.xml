@@ -16,16 +16,11 @@
 	<!-- 	<mvc:annotation-driven/> -->
 	<!-- <mvc:annotation-driven conversion-service="conversion-service" /> -->
 	<!-- 默认的注解映射的支持，自动注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->  
-<<<<<<< HEAD
 	<mvc:annotation-driven validator="validator" conversion-service="conversion-service" />
-=======
-	<mvc:annotation-driven />
->>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/jsp/"></property>
 		<property name="suffix" value=".jsp"></property>
 	</bean>
-<<<<<<< HEAD
 	<!-- 类型转换 -->
     <bean id="conversion-service" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" />
 	
@@ -57,6 +52,4 @@
 	    <!--resolveLazily看名字就知道延迟解析文件的意思，如果设置为true，那么在没有读取文件之前，不会分析请求中的文件。默认false -->
 		<!-- <property name="resolveLazily" value="true"></property> -->
 	</bean>
-=======
->>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 </beans>

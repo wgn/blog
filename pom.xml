@@ -59,7 +59,6 @@
 			<version>${servlet.version}</version>
 			<scope>provided</scope>
 		</dependency>
-<<<<<<< HEAD
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -120,8 +119,6 @@
 			<artifactId>cglib</artifactId>
 			<version>${cglib.version}</version>
 		</dependency>
-=======
->>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 		<!--  spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -133,14 +130,11 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-<<<<<<< HEAD
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
 			<version>${spring.version}</version>
 		</dependency>
-=======
->>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 		<!--  spring -->
 		<!-- aop的包，这个比较坑，AOP依赖写的 <optional>true</optional>，但是没有就报错 -->
 		<dependency>
@@ -157,7 +151,6 @@
 			<version>${mybatis.spring.version}</version>
 		</dependency>
 		<!--  mybatis spring 整合包 -->
-<<<<<<< HEAD
 		<!-- 数据库连接池 -->
 		<!-- dbcp数据库连接池 -->
 		<dependency>
@@ -196,8 +189,6 @@
 			<version>1.2.2</version>
 		</dependency>
 		
-=======
->>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 	</dependencies>
 	<build>
 		<finalName>blog</finalName>
@@ -207,13 +198,8 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.0</version>
 				<configuration>
-<<<<<<< HEAD
 					<source>1.8</source>
 					<target>1.8</target>
-=======
-					<source>1.6</source>
-					<target>1.6</target>
->>>>>>> f3885674040c9c9bbe2419a1017c37fc9cbbee33
 					<encoding>UTF-8</encoding>
 					<verbal>true</verbal>
 				</configuration>
