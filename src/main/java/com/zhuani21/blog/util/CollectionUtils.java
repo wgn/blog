@@ -2,7 +2,7 @@ package com.zhuani21.blog.util;
 
 import java.util.List;
 
-public class CollectionCheckUtils {
+public class CollectionUtils {
 	public static final <T> boolean isBlankList(List<T> list) {
 		if(null!=list && list.size()>0){
 			return false;
@@ -16,4 +16,5 @@ public class CollectionCheckUtils {
 		}
 		return true;
 	}
+	
 }

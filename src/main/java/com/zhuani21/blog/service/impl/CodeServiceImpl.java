@@ -14,7 +14,7 @@ import com.zhuani21.blog.bean.CodeCustom;
 import com.zhuani21.blog.exception.BlogBaseException;
 import com.zhuani21.blog.service.CodeService;
 import com.zhuani21.blog.util.BeanCopyUtils;
-import com.zhuani21.blog.util.CollectionCheckUtils;
+import com.zhuani21.blog.util.CollectionUtils;
 @Service("codeService")
 public class CodeServiceImpl implements CodeService {
 	@Autowired
@@ -57,7 +57,7 @@ public class CodeServiceImpl implements CodeService {
 		CodeExample codeExample = new CodeExample();
 		codeExample.createCriteria().andTypeEqualTo(CodeCustom.BASE_CODE_TYPE).andCodeEqualTo(type);
 		List<Code> originCodeList = codeMapper.selectByExample(codeExample);
-		if(CollectionCheckUtils.isNotBlankList(originCodeList)){
+		if(CollectionUtils.isNotBlankList(originCodeList)){
 			return originCodeList.get(0);
 		}
 		return null;

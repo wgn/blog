@@ -1,6 +1,8 @@
 package com.zhuani21.blog.controller;
 
 
+import java.util.Arrays;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -27,7 +29,7 @@ public class BlogController {
 		if(StringUtils.isNoneBlank(license)){*/
 			modelAndView.addObject("admin",true);
 		/*}*/
-			
+		
 		modelAndView.addObject("blogList", UserBlogDataMapper.getBlog("admin").getList());
 			
 		modelAndView.setViewName("blogIndex");
