@@ -1,8 +1,6 @@
 package com.zhuani21.blog.controller;
 
 
-import java.util.Arrays;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -25,13 +23,10 @@ public class BlogController {
 	public ModelAndView admin(HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 		
-		/*String license = req.getParameter("license");
-		if(StringUtils.isNoneBlank(license)){*/
-			modelAndView.addObject("admin",true);
-		/*}*/
+		modelAndView.addObject("admin",true);
 		
 		modelAndView.addObject("blogList", UserBlogDataMapper.getBlog("admin").getList());
-			
+
 		modelAndView.setViewName("blogIndex");
 		return modelAndView;
 	}
