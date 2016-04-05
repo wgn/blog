@@ -32,6 +32,8 @@ public class SerializeObject {
 			}
 			ObjectOutputStream oo = new ObjectOutputStream(new FileOutputStream(new File(filePath+fileName)));
 			oo.writeObject(o);
+			//oo.writeObject(null);//避免EOFException,说实话我也不明白为啥这么操蛋，不加这句，读取的时候就会报EOF异常
+			oo.flush();
 			oo.close();
 		} catch (IOException e) {
 			throw new SerializeException("序列化出错：对象" + o + ";文件：" + f);
@@ -44,12 +46,20 @@ public class SerializeObject {
 		if (!f.exists()) {
 			return null;
 		}
-		ObjectInputStream ois;
+		ObjectInputStream ois = null;
 		try {
 			ois = new ObjectInputStream(new FileInputStream(f));
 			return (T)ois.readObject();
 		} catch (Exception e) {
 			e.printStackTrace();
+		}finally{
+			if(null!=ois){
+				try {
+					ois.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 		return null;
 	}

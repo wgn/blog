@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.zhuani21.blog.bean.Blog;
 import com.zhuani21.blog.util.SerializeObject;
 
@@ -21,8 +23,12 @@ public class UserBlogDataMapper {
 			for (String fName : fileNames) {
 				String[] splitNames = fName.split("\\.");
 				String username = splitNames[0];
-				Blog blog = SerializeObject.deserialize(new Blog(), fName);
-				blogMap.put(username, blog);
+				if(StringUtils.isNotBlank(username) && fName.indexOf(SerializeObject.BLOG_FILE_NAME)!=-1){
+					Blog blog = SerializeObject.deserialize(new Blog(), fName);
+					if(null!=blog){
+						blogMap.put(username, blog);
+					}
+				}
 			}
 			// dir.listFiles();
 		}
