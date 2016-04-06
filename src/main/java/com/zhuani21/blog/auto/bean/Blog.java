@@ -7,7 +7,7 @@ public class Blog {
 
     private Integer userId;
 
-    private Boolean status;
+    private String status;
 
     private Date createTime;
 
@@ -29,12 +29,12 @@ public class Blog {
         this.userId = userId;
     }
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
-        this.status = status;
+    public void setStatus(String status) {
+        this.status = status == null ? null : status.trim();
     }
 
     public Date getCreateTime() {

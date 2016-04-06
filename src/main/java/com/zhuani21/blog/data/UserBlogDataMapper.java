@@ -6,12 +6,12 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.zhuani21.blog.bean.Blog;
+import com.zhuani21.blog.bean.BlogCustom;
 import com.zhuani21.blog.util.SerializeObject;
 
 public class UserBlogDataMapper {
 
-	private static Map<String, Blog> blogMap = new HashMap<String, Blog>();
+	private static Map<String, BlogCustom> blogMap = new HashMap<String, BlogCustom>();
 
 	static {
 		String blogFilePath = SerializeObject.getBlogFilePath();
@@ -24,9 +24,9 @@ public class UserBlogDataMapper {
 				String[] splitNames = fName.split("\\.");
 				String username = splitNames[0];
 				if(StringUtils.isNotBlank(username) && fName.indexOf(SerializeObject.BLOG_FILE_NAME)!=-1){
-					Blog blog = SerializeObject.deserialize(new Blog(), fName);
-					if(null!=blog){
-						blogMap.put(username, blog);
+					BlogCustom blogCustom = SerializeObject.deserialize(new BlogCustom(), fName);
+					if(null!=blogCustom){
+						blogMap.put(username, blogCustom);
 					}
 				}
 			}
@@ -38,10 +38,10 @@ public class UserBlogDataMapper {
 		System.out.println();
 	}
 
-	public static Blog getBlog(String username) {
-		Blog b = blogMap.get(username);
+	public static BlogCustom getBlog(String username) {
+		BlogCustom b = blogMap.get(username);
 		if (null == b) {
-			b = new Blog();
+			b = new BlogCustom();
 			blogMap.put(username, b);
 			System.out.println("new a blog for user:" + username);
 		}

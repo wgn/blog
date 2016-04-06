@@ -46,16 +46,53 @@ overflow:auto;
 		</div>
 		</c:if>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 col-sm-12">
+			<div id="content" class="col-md-8 col-md-offset-2 col-sm-12">
 			<c:if test="${blogList!=null }">
 				<c:forEach var="blog" items="${blogList }">
-				<pre>${blog }</pre>
+				<pre>${blog.content }</pre>
 				</c:forEach>
 			</c:if>
+			<input class="btn btn-default" type="button" onclick="loadMore();" value="...Load More..." />
 			</div>
 		</div>
 	</div>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+var pageIndex = 0;
+/* $(document).ready(function(){
+	loadMore();
+});  
+$(window).scroll(function(){  
+	// 当滚动到最底部以上100像素时， 加载新内容  
+	if ($(document).height() - $(this).scrollTop() - $(this).height()<100){
+		loadMore();
+	} 
+}); */
+function loadMore() {
+	pageIndex++;
+	/* $.ajax({
+		type:"post",
+		url:"${pageContext.request.contextPath }/blog/loadMore.action",
+		contentType:"application/json;charset=utf-8",
+		dataType:"json",
+		data:"{'page':" + pageIndex + "}",
+		success : function(data){
+			console.log(data);
+		}
+	}); */
+	$.ajax({
+		type:"post",
+		url:"${pageContext.request.contextPath }/blog/loadMore.action",
+		contentType:"application/json;charset=urf-8", 
+		/* dataType:"json", */
+		data:"{'page':" + pageIndex + "}",
+		success : function(data){
+			console.log(data);
+		}
+	});
+	
+}  
+</script>
 </body>
 </html>

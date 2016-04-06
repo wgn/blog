@@ -9,7 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import com.zhuani21.blog.util.SerializeObject;
 
 @SuppressWarnings("serial")
-public class Blog implements Serializable {
+public class BlogCustom implements Serializable {
 	private List<String> contentList = new ArrayList<String>();
 
 	public void add(String c) {
