@@ -18,10 +18,10 @@ public class BlogServiceImpl implements BlogService {
 	@Autowired
 	private BlogDao blogDao;
 	@Override
-	public List<Blog> getBlogList(Integer userId, Integer page) {
-		//check and init page
-		if(null==page || page<0){
-			page = 0;
+	public List<Blog> getBlogList(Integer userId, Integer pageIndex) {
+		//check and init pageIndex
+		if(null==pageIndex || pageIndex<0){
+			pageIndex = 0;
 		}
 		//check userId.if userId is invalid, return empty list;
 		if(null==userId){
@@ -30,7 +30,7 @@ public class BlogServiceImpl implements BlogService {
 		
 		BlogEx blogEx = new BlogEx();
 		blogEx.setUserId(userId);
-		blogEx.setPage(page);
+		blogEx.setPageIndex(pageIndex);
 		blogEx.setStatus(BlogEx.DEFAULT_STATUS);
 		return blogDao.getBlogList(blogEx);
 	}

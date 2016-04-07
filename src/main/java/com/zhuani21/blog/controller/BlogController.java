@@ -2,10 +2,12 @@ package com.zhuani21.blog.controller;
 
 
 import java.io.PrintWriter;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.Blog;
+import com.zhuani21.blog.bean.BlogEx;
 import com.zhuani21.blog.bean.BlogJsonVO;
 import com.zhuani21.blog.data.UserBlogDataMapper;
 import com.zhuani21.blog.service.BlogService;
@@ -35,6 +38,7 @@ public class BlogController {
 		ModelAndView modelAndView = getBlogList(null, null);
 		//管理员标志
 		modelAndView.addObject("admin",true);
+		
 		return modelAndView;
 	}
 	
@@ -44,9 +48,8 @@ public class BlogController {
 		return modelAndView;
 	}
 	@RequestMapping("/add")
-	public String add(HttpServletRequest req,HttpServletResponse resp) throws Exception {
-		Blog blog = new Blog();
-		String content = req.getParameter("content");
+	public @ResponseBody Blog add(@RequestBody Blog blog) throws Exception {
+		String content = blog.getContent();
 		if(StringUtils.isNoneBlank(content)){
 			String today = new WDate("yyyy/MM/dd").toString();
 			String preStr = "--------------------- " + today + " \r\n\r\n";
@@ -56,47 +59,33 @@ public class BlogController {
 		//其他的值都有默认值，只需要设置这个足够了
 		blog.setUserId(1);
 		blogService.addBlog(blog);
-		return "redirect:/blog/admin.action";
+		return blog;
+	}
+	@RequestMapping("/save")
+	public @ResponseBody Blog save(@RequestBody Blog blog,HttpServletRequest req) throws Exception {
+
+		String content = blog.getContent();
+		if(StringUtils.isNoneBlank(content)){
+			String today = new WDate("yyyy/MM/dd").toString();
+			String preStr = "--------------------- " + today + " \r\n\r\n";
+			String res = preStr + content+"\r\n\r\n";
+			blog.setContent(res);
+			//其他的值都有默认值，只需要设置这个足够了
+			blog.setUserId(1);
+			blogService.addBlog(blog);
+			return blog;
+		}
+		return null;
 	}
 	
 	@RequestMapping("/loadMore")
-	public @ResponseBody BlogJsonVO loadMore(@RequestBody BlogJsonVO json) throws Exception {
-		logger.debug("page = " + json.getPage());
+	public @ResponseBody List<Blog> loadMore(@RequestBody BlogJsonVO json,HttpSession session) throws Exception {
+		logger.error("page = " + json.getPageIndex());
 		
-		List<Blog> blogList = blogService.getBlogList(1, json.getPage());
-		if(null!=blogList && blogList.size()>0){
-			StringBuffer res = new StringBuffer();
-			for(Blog blog :  blogList){
-				res.append("<pre>");
-				res.append(blog.getContent());
-				res.append("</pre>");
-			}
-			json.setRes(res.toString());
-		}
-		return json;
+		List<Blog> blogList = blogService.getBlogList(1, json.getPageIndex());
+		return blogList;
 	}
-	@RequestMapping("/loadMore1")
-	public void loadMore1( Integer page,HttpServletRequest req,HttpServletResponse resp) throws Exception {
-		logger.debug("page = " + page);
-		String reqPage = req.getParameter("page");
-		logger.debug("reqPage = " + reqPage);
-		
-		List<Blog> blogList = blogService.getBlogList(1, page);
-		if(null!=blogList && blogList.size()>0){
-			StringBuffer res = new StringBuffer();
-			for(Blog blog :  blogList){
-				res.append("<pre>");
-				res.append(blog.getContent());
-				res.append("</pre>");
-			}
-			resp.setContentType("text/html;charset=utf-8");
-			PrintWriter out = resp.getWriter();
-			out.write(res.toString());
-			out.close();
-		}
-	}
-	
-	
+
 	private ModelAndView getBlogList(Integer userId,Integer page) {
 		ModelAndView modelAndView = new ModelAndView();
 		if(null==userId){
@@ -108,9 +97,8 @@ public class BlogController {
 		//admin的userId是1，先写1测试.页数是0，因为第一次登陆0-100条。
 		List<Blog> blogList = blogService.getBlogList(userId, page);
 		//原来保存文件的方式。
-		
 		modelAndView.addObject("blogList", blogList);
-
+		modelAndView.addObject("pageIndex", BlogEx.ONE_PAGE_COUNT);
 		modelAndView.setViewName("blogIndex");
 		return modelAndView;
 	}

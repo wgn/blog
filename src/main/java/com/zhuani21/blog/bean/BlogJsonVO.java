@@ -1,26 +1,29 @@
 package com.zhuani21.blog.bean;
 
 public class BlogJsonVO {
-	
-	private Integer page;
-	
-	private String res;
 
-	public Integer getPage() {
-		return page;
+	private Integer pageIndex;
+	private String content;
+
+	public String getContent() {
+		return content;
 	}
 
-	public void setPage(Integer page) {
-		this.page = page;
+	public void setContent(String content) {
+		this.content = content;
 	}
 
-	public String getRes() {
-		return res;
+	public Integer getPageIndex() {
+		return pageIndex;
 	}
 
-	public void setRes(String res) {
-		this.res = res;
+	public void setPageIndex(Integer pageIndex) {
+		this.pageIndex = pageIndex;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "BlogJsonVO [pageIndex=" + pageIndex + ", content=" + content + "]";
+	}
+
 }

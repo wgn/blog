@@ -26,7 +26,7 @@ overflow:auto;
 		<c:if test="${admin==true }">
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 col-sm-12">
-			<form action="${pageContext.request.contextPath }/blog/add.action" method="post">
+			<form>
 				<table class="table table-bordered">
 					<tr>
 						<td style="vertical-align:middle" align="center" ><input class="btn btn-default" type="button" value="超链接"/></td>
@@ -36,8 +36,8 @@ overflow:auto;
 				</table>
 				<table class="table table-bordered">
 					<tr>
-						<td style="vertical-align:middle" align="center"  width="70%"><textarea rows="12" class="comments" style="height:expression((this.scrollHeight>150)?'150px':(this.scrollHeight+5)+'px');overflow:auto;" name="content" placeholder="添加内容。。。"></textarea></td>
-						<td style="vertical-align:middle" align="center"  width="30%"><input class="btn btn-default" type="submit" value="保存"/></td>
+						<td style="vertical-align:middle" align="center"  width="70%"><textarea id="blog_content" rows="12" class="comments" style="height:expression((this.scrollHeight>150)?'150px':(this.scrollHeight+5)+'px');overflow:auto;"  name="content" placeholder="添加内容。。。"></textarea></td>
+						<td style="vertical-align:middle" align="center"  width="30%"><input class="btn btn-default" type="button" onclick="save();" value="保存"/></td>
 						
 					</tr>
 				</table>
@@ -52,47 +52,20 @@ overflow:auto;
 				<pre>${blog.content }</pre>
 				</c:forEach>
 			</c:if>
-			<input class="btn btn-default" type="button" onclick="loadMore();" value="...Load More..." />
 			</div>
+			<input class="btn btn-default" type="button" onclick="loadMore();" value="...Load More..." />
 		</div>
 	</div>
 <script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/js/blog.js"></script>
 <script type="text/javascript">
-var pageIndex = 0;
-/* $(document).ready(function(){
-	loadMore();
-});  
-$(window).scroll(function(){  
-	// 当滚动到最底部以上100像素时， 加载新内容  
-	if ($(document).height() - $(this).scrollTop() - $(this).height()<100){
-		loadMore();
-	} 
-}); */
-function loadMore() {
-	pageIndex++;
-	/* $.ajax({
-		type:"post",
-		url:"${pageContext.request.contextPath }/blog/loadMore.action",
-		contentType:"application/json;charset=utf-8",
-		dataType:"json",
-		data:"{'page':" + pageIndex + "}",
-		success : function(data){
-			console.log(data);
-		}
-	}); */
-	$.ajax({
-		type:"post",
-		url:"${pageContext.request.contextPath }/blog/loadMore.action",
-		contentType:"application/json;charset=urf-8", 
-		/* dataType:"json", */
-		data:"{'page':" + pageIndex + "}",
-		success : function(data){
-			console.log(data);
-		}
-	});
-	
-}  
+var initPageIndex = ${pageIndex };
+var initContextPath = "${pageContext.request.contextPath }";
+$(document).ready(function() { 
+	pageIndex = initPageIndex;
+	contextPath = initContextPath;
+}); 
 </script>
 </body>
 </html>

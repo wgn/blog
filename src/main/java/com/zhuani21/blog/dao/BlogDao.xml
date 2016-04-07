@@ -3,6 +3,6 @@
 <mapper namespace="com.zhuani21.blog.dao.BlogDao" >
 
 	<select id="getBlogList" parameterType="com.zhuani21.blog.bean.BlogEx" resultType="com.zhuani21.blog.auto.bean.Blog">
-		select content from blog where user_id=#{userId } and status=#{status } order by id desc limit #{startIndex },#{pageCount}
+		select id, content from blog where user_id=#{userId } and status=#{status } order by id desc limit #{pageIndex },#{onePageCount}
 	</select>
 </mapper>
