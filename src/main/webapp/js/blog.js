@@ -32,21 +32,23 @@ function loadMore() {
 function save(){
 	var content = document.getElementById("content");
 	var blog_content = $('#blog_content').val();
-	 $.ajax({
-        type: "POST",
-        url:contextPath + '/blog/save.action',
-        contentType:"application/json;charset=urf-8", 
-        data:'{"content":"' +blog_content+ '"}',// 你的formid
-        error: function(request) {
-            alert(" 发生未知错误 ");
-        },
-        success: function(data) {
-        	if(null!=data){
-				var newPre = document.createElement("pre");
-				newPre.innerHTML = data.content;
-				$("#content").prepend(newPre);
-			}
-			pageIndex = pageIndex + 1;
-        }
-    }); 
+	if(blog_content){
+		 $.ajax({
+		 	type: "POST",
+		 	url:contextPath + '/blog/save.action',
+		    data:'content=' +blog_content+ '',// 你的formid
+		    error: function(request) {
+		        alert(" 发生未知错误 ");
+		    },
+		    success: function(data) {
+		    	if(data){
+		    		var newPre = document.createElement("pre");
+					newPre.innerHTML = data.content;
+					$("#content").prepend(newPre);
+				}
+				pageIndex = pageIndex + 1;
+				$('#blog_content').val("");
+		    }
+		}); 
+	}
 }

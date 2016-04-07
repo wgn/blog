@@ -49,7 +49,7 @@ overflow:auto;
 			<div id="content" class="col-md-8 col-md-offset-2 col-sm-12">
 			<c:if test="${blogList!=null }">
 				<c:forEach var="blog" items="${blogList }">
-				<pre>${blog.content }</pre>
+				<pre><xmp>${blog.content }</xmp></pre>
 				</c:forEach>
 			</c:if>
 			</div>

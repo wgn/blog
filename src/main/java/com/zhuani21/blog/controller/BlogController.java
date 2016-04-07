@@ -1,8 +1,6 @@
 package com.zhuani21.blog.controller;
 
 
-import java.io.PrintWriter;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,7 +19,6 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhuani21.blog.auto.bean.Blog;
 import com.zhuani21.blog.bean.BlogEx;
 import com.zhuani21.blog.bean.BlogJsonVO;
-import com.zhuani21.blog.data.UserBlogDataMapper;
 import com.zhuani21.blog.service.BlogService;
 import com.zhuani21.blog.util.WDate;
 
@@ -62,7 +59,7 @@ public class BlogController {
 		return blog;
 	}
 	@RequestMapping("/save")
-	public @ResponseBody Blog save(@RequestBody Blog blog,HttpServletRequest req) throws Exception {
+	public @ResponseBody Blog save(Blog blog,HttpServletRequest req) throws Exception {
 
 		String content = blog.getContent();
 		if(StringUtils.isNoneBlank(content)){
