@@ -1,22 +1,34 @@
 var pageIndex = 0;
 var contextPath = "/";
+var haveMore = true;
+var running = false;
 
 /* $(document).ready(function(){
 	loadMore();
-});  
+}); */ 
 $(window).scroll(function(){  
-	// 当滚动到最底部以上100像素时， 加载新内容  
-	if ($(document).height() - $(this).scrollTop() - $(this).height()<100){
+	 //当滚动到最底部以上100像素时， 加载新内容  
+	if ($(document).height() - $(this).scrollTop() - $(this).height()<50){
+		if(!haveMore || running){
+			return;
+		}
+		$("#loading").show();
 		loadMore();
-	} 
-}); */
+	}
+}); 
 function loadMore() {
+	running = true;
 	var content = document.getElementById("content");
 	$.ajax({
 		type:"post",
 		url:contextPath +"/blog/loadMore.action",
 		contentType:"application/json;charset=urf-8", 
 		data:'{"pageIndex":' + pageIndex + '}',
+		error: function(request) {
+			$("#loading").hide();
+			running = false;
+	        alert(" 发生未知错误 ");
+	    },
 		success : function(data){
 			if(null!=data && data.length>0){
 				for(var i=0;i<data.length;i++){
@@ -24,7 +36,12 @@ function loadMore() {
 					newPre.innerHTML = data[i].content;
 					content.appendChild(newPre);
 				}
+			}else{
+				haveMore = false;
+				$("#noResult").show();
 			}
+			$("#loading").hide();
+			running = false;
 			pageIndex = pageIndex + data.length;
 		}
 	});
@@ -32,11 +49,15 @@ function loadMore() {
 function save(){
 	var content = document.getElementById("content");
 	var blog_content = $('#blog_content').val();
+	var new_content = JSON.stringify(blog_content);
+	//http://img2.imgtn.bdimg.com/it/u=2969439243,1924542195&fm=21&gp=0.jpg
 	if(blog_content){
 		 $.ajax({
 		 	type: "POST",
 		 	url:contextPath + '/blog/save.action',
-		    data:'content=' +blog_content+ '',// 你的formid
+		 	contentType:"application/json;charset=urf-8", 
+			data:'{"content":' + new_content + '}',
+		   /* data:'content=' +blog_content+ '',*/// 你的formid
 		    error: function(request) {
 		        alert(" 发生未知错误 ");
 		    },
