@@ -6,7 +6,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<link rel="shortcut  icon" type="image/x-icon" href="${pageContext.request.contextPath }/css/images/favicon.ico" media="screen"  />
+<link href="${pageContext.request.contextPath }/libs/bootstrap/3.3.4/bootstrap.min.css" rel="stylesheet">
 <style type="text/css"> 
  .comments { 
  width:100%;/*自动适应父布局宽度*/ 
@@ -45,13 +46,13 @@ overflow:auto;
 		<div class="row">
 			<div class="col-md-8 col-md-offset-2 col-sm-12">
 			<form>
-				<table class="table table-bordered">
+				<!-- <table class="table table-bordered">
 					<tr>
 						<td style="vertical-align:middle" align="center" ><input class="btn btn-default" type="button" value="超链接"/></td>
 						<td style="vertical-align:middle" align="center" ><input class="btn btn-default" type="button" value="图片"/></td>
 						<td style="vertical-align:middle" align="center" ><input class="btn btn-default" type="button" value="代码"/></td>
 					</tr>
-				</table>
+				</table> -->
 				<table class="table table-bordered">
 					<tr>
 						<td style="vertical-align:middle" align="center" ><textarea id="blog_content" rows="12" class="comments" style="height:expression((this.scrollHeight>150)?'150px':(this.scrollHeight+5)+'px');overflow:auto;"  name="content" placeholder="添加内容。。。"></textarea></td>
@@ -83,8 +84,9 @@ overflow:auto;
 		</div>
 	</div>
 	<hr />
-<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/libs/jquery/1.12.3/jquery-1.12.3.min.js"></script>
+<script src="${pageContext.request.contextPath }/libs/bootstrap/3.3.4/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath }/libs/jquery-json/jquery.json.min.js"></script>
 <script src="${pageContext.request.contextPath }/js/blog.js"></script>
 <script type="text/javascript">
 var initPageIndex = ${pageIndex };

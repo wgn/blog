@@ -77,8 +77,6 @@ public class BlogController {
 	
 	@RequestMapping("/loadMore")
 	public @ResponseBody List<Blog> loadMore(@RequestBody BlogJsonVO json,HttpSession session) throws Exception {
-		logger.error("page = " + json.getPageIndex());
-		Thread.sleep(2000);
 		List<Blog> blogList = blogService.getBlogList(1, json.getPageIndex());
 		return blogList;
 	}

@@ -22,12 +22,12 @@ function loadMore() {
 	$.ajax({
 		type:"post",
 		url:contextPath +"/blog/loadMore.action",
-		contentType:"application/json;charset=urf-8", 
+		contentType:"application/json;charset=utf-8;", 
 		data:'{"pageIndex":' + pageIndex + '}',
 		error: function(request) {
 			$("#loading").hide();
-			running = false;
 	        alert(" 发生未知错误 ");
+	        running = false;
 	    },
 		success : function(data){
 			if(null!=data && data.length>0){
@@ -49,14 +49,14 @@ function loadMore() {
 function save(){
 	var content = document.getElementById("content");
 	var blog_content = $('#blog_content').val();
-	var new_content = JSON.stringify(blog_content);
+	var jquery_content = $.toJSON(blog_content);
 	//http://img2.imgtn.bdimg.com/it/u=2969439243,1924542195&fm=21&gp=0.jpg
 	if(blog_content){
 		 $.ajax({
 		 	type: "POST",
 		 	url:contextPath + '/blog/save.action',
-		 	contentType:"application/json;charset=urf-8", 
-			data:'{"content":' + new_content + '}',
+		 	contentType:"application/json;charset=utf-8", 
+			data:'{"content":' + jquery_content + '}',
 		   /* data:'content=' +blog_content+ '',*/// 你的formid
 		    error: function(request) {
 		        alert(" 发生未知错误 ");
