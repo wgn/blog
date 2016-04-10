@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -74,6 +75,10 @@ public class CodeController {
 	public ModelAndView editView(HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		return addAndEditView(req,resp,"edit");
 	}
+	@RequestMapping(value={"/edit/{id}"},method={RequestMethod.GET})
+	public ModelAndView editRestView(@PathVariable("id") Integer id) throws Exception {
+		return addAndEditRestView(id,"edit");
+	}
 	
 	@RequestMapping(value={"/delete"})
 	public ModelAndView deleteCode(Integer id) throws Exception {
@@ -110,6 +115,18 @@ public class CodeController {
 			return modelAndView;
 		}
 		Integer codeIntId = Integer.parseInt(codeId);
+		CodeCustom code = codeService.queryCodeById(codeIntId);
+		modelAndView.addObject("code", code);
+		return modelAndView;
+	}
+	private ModelAndView addAndEditRestView(Integer id,String opType) throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("codeUpdate");
+		modelAndView.addObject("opType",opType);
+		if(null==id || id==0){
+			return modelAndView;
+		}
+		Integer codeIntId = id;
 		CodeCustom code = codeService.queryCodeById(codeIntId);
 		modelAndView.addObject("code", code);
 		return modelAndView;
