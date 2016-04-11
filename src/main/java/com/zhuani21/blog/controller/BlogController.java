@@ -11,8 +11,10 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -30,7 +32,7 @@ public class BlogController {
 	@Autowired
 	BlogService blogService;
 	
-	@RequestMapping("/admin")
+	@RequestMapping(value={"/admin"},method={RequestMethod.GET})
 	public ModelAndView admin(HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		ModelAndView modelAndView = getBlogList(null, null);
 		//管理员标志
@@ -39,28 +41,17 @@ public class BlogController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/index")
+	@RequestMapping(value={"/index"},method={RequestMethod.GET})
 	public ModelAndView index(HttpServletRequest req,HttpServletResponse resp) throws Exception {
 		ModelAndView modelAndView = getBlogList(null, null);
 		return modelAndView;
 	}
-	@RequestMapping("/add")
-	public @ResponseBody Blog add(@RequestBody Blog blog) throws Exception {
-		String content = blog.getContent();
-		if(StringUtils.isNoneBlank(content)){
-			String today = new WDate("yyyy/MM/dd").toString();
-			String preStr = "--------------------- " + today + " \r\n\r\n";
-			String res = preStr + content+"\r\n\r\n";
-			blog.setContent(res);
-		}
-		//其他的值都有默认值，只需要设置这个足够了
-		blog.setUserId(1);
-		blogService.addBlog(blog);
-		return blog;
-	}
-	@RequestMapping("/save")
-	public @ResponseBody Blog save(@RequestBody Blog blog,HttpServletRequest req) throws Exception {
 
+	@RequestMapping(value={"/save"},method={RequestMethod.POST})
+	public @ResponseBody Blog save(@RequestBody Blog blog,HttpServletRequest req) throws Exception {
+		if(null==blog){
+			return null;
+		}
 		String content = blog.getContent();
 		if(StringUtils.isNoneBlank(content)){
 			String today = new WDate("yyyy/MM/dd").toString();
@@ -75,9 +66,9 @@ public class BlogController {
 		return null;
 	}
 	
-	@RequestMapping("/loadMore")
-	public @ResponseBody List<Blog> loadMore(@RequestBody BlogJsonVO json,HttpSession session) throws Exception {
-		List<Blog> blogList = blogService.getBlogList(1, json.getPageIndex());
+	@RequestMapping(value={"/loadMore/{pageIndex}"},method={RequestMethod.GET})
+	public @ResponseBody List<Blog> loadMore(@PathVariable("pageIndex") Integer pageIndex) throws Exception {
+		List<Blog> blogList = blogService.getBlogList(1, pageIndex);
 		return blogList;
 	}
 

@@ -4,10 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<link rel="shortcut  icon" type="image/x-icon" href="${pageContext.request.contextPath }/css/images/favicon.ico" media="screen"  />
-<link href="${pageContext.request.contextPath }/libs/bootstrap/3.3.4/bootstrap.min.css" rel="stylesheet">
+<%@include file="./include/headResource.jsp" %>
 <style type="text/css"> 
  .comments { 
  width:100%;/*自动适应父布局宽度*/ 
@@ -84,10 +81,7 @@ overflow:auto;
 		</div>
 	</div>
 	<hr />
-<script src="${pageContext.request.contextPath }/libs/jquery/1.12.3/jquery-1.12.3.min.js"></script>
-<script src="${pageContext.request.contextPath }/libs/bootstrap/3.3.4/bootstrap.min.js"></script>
-<script src="${pageContext.request.contextPath }/libs/jquery-json/jquery.json.min.js"></script>
-<script src="${pageContext.request.contextPath }/js/blog.js"></script>
+<%@include file="./include/bottomResource.jsp" %>
 <script type="text/javascript">
 var initPageIndex = ${pageIndex };
 var initContextPath = "${pageContext.request.contextPath }";

@@ -20,10 +20,8 @@ function loadMore() {
 	running = true;
 	var content = document.getElementById("content");
 	$.ajax({
-		type:"post",
-		url:contextPath +"/blog/loadMore.action",
-		contentType:"application/json;charset=utf-8;", 
-		data:'{"pageIndex":' + pageIndex + '}',
+		type:"get",
+		url:contextPath +"/blog/loadMore/" + pageIndex ,
 		error: function(request) {
 			$("#loading").hide();
 	        alert(" 发生未知错误 ");
@@ -54,7 +52,7 @@ function save(){
 	if(blog_content){
 		 $.ajax({
 		 	type: "POST",
-		 	url:contextPath + '/blog/save.action',
+		 	url:contextPath + '/blog/save',
 		 	contentType:"application/json;charset=utf-8", 
 			data:'{"content":' + jquery_content + '}',
 		   /* data:'content=' +blog_content+ '',*/// 你的formid

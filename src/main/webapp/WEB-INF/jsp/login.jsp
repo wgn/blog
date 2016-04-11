@@ -1,34 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
-<link href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+<%@include file="./include/headResource.jsp"%>
+<style type="text/css">
+.loginDiv {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -150px 0 0 -200px;
+	width: 400px;
+	height: 300px;
+	z-index: 99;
+}
+.form-control{
+font-size: large;
+}
+</style>
 <title>登陆</title>
 </head>
 <body>
-	<div class="container">
+	<div class="container loginDiv">
 		<div class="row">
-			<div class="col-xs-8 col-md-offset-2">
+			<div class="col-md-8 col-md-offset-2 col-sm-12 ">
+				<form name="loginForm" action="${pageContext.request.contextPath }/login" method="post">
+					<table class="table table-bordered">
+						<tr>
+							<td><input class="form-control"  placeholder="Username" type="text" id="username" name="username" value="${username }" /></td>
+						</tr>
+						<tr>
+							<td><input class="form-control" placeholder="Password" type="password" id="password" name="password" /></td>
+						</tr>
+						<tr>
+							<td align="center"><input class="btn btn-default" type="button" onclick="login();" value="登陆"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2 col-sm-12" align="right">
 				<c:if test="${loginErrorMsg!=null}">
 					<font color="red">${loginErrorMsg }</font>
 				</c:if>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col-xs-8 col-md-offset-2">
-				<form action="${pageContext.request.contextPath }/login.action" method="post">
-					 用户名：<input type="text" name="username" value="${username }"/><br/>
-					 密码：<input type="password" name="password"/><br/>
-					 <input type="submit" value="登陆">
-				</form>
-			</div>
-		</div>
 	</div>
-	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<%@include file="./include/bottomResource.jsp"%>
+	<script type="text/javascript">
+	function login(){
+		if(!$("#username").val() || !$("#password").val()){
+			alert("用户名密码不能为空哇");
+			return ;
+		}
+		document.loginForm.submit();
+	}
+	</script>
 </body>
 </html>

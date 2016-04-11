@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.User;
@@ -44,6 +45,11 @@ public class LoginAuthController {
 			modelAndView.setViewName("login");
 		}
 		return modelAndView;
+	}
+	@RequestMapping(value={"/logout"}, method={RequestMethod.GET})
+	public String logout(HttpSession session) throws Exception {
+		session.invalidate();
+		return "redirect:login";
 	}
 
 }
