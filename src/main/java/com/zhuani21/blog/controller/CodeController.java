@@ -68,7 +68,7 @@ public class CodeController {
 		}
 		code.setId(null);
 		codeService.insertCode(code);
-		modelAndView.setViewName("redirect:/code/list.action");
+		modelAndView.setViewName("redirect:/code/list");
 		return modelAndView;
 	}
 	@RequestMapping(value={"/edit"},method={RequestMethod.GET})
@@ -85,7 +85,7 @@ public class CodeController {
 		ModelAndView modelAndView= new ModelAndView();
 		if(null!=id && id>0){
 			codeService.deleteCodeById(id);
-			modelAndView.setViewName("redirect:/code/list.action");
+			modelAndView.setViewName("redirect:/code/list");
 			return modelAndView;
 		}
 		return null;
@@ -102,7 +102,7 @@ public class CodeController {
 				codeService.updateCode(code);
 			}
 		}
-		modelAndView.setViewName("redirect:/code/list.action");
+		modelAndView.setViewName("redirect:/code/list");
 		return modelAndView;
 	}
 	
