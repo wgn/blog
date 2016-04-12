@@ -4,7 +4,8 @@
 
 	<select id="findUserByLoginAuth" parameterType="com.zhuani21.blog.vo.LoginAuthCustomVo"
 		resultType="com.zhuani21.blog.auto.bean.User">
-		<if test="loginAuthCustom != null and loginAuthCustom.username!=null and loginAuthCustom.username!='' and loginAuthCustom.password!=null and loginAuthCustom.password !=''">
+		<if
+			test="loginAuthCustom != null and loginAuthCustom.username!=null and loginAuthCustom.username!='' and loginAuthCustom.password!=null and loginAuthCustom.password !=''">
 			select u.* from user u join login_auth l on (u.id = l.user_id)
 			where
 			l.username=#{loginAuthCustom.username} and

@@ -6,5 +6,4 @@ import com.zhuani21.blog.vo.LoginAuthCustomVo;
 public interface LoginAuthDao {
 	
 	public User findUserByLoginAuth(LoginAuthCustomVo loginAuthCustomVo) throws Exception;
-	
 }

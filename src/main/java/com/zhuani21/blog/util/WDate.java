@@ -12,6 +12,10 @@ public class WDate {
 		SimpleDateFormat sdf = new SimpleDateFormat(formate);
 		toString = sdf.format(now);
 	}
+	public WDate(Date date,String formate){
+		SimpleDateFormat sdf = new SimpleDateFormat(formate);
+		toString = sdf.format(date);
+	}
 	
 	@Override
 	public String toString() {

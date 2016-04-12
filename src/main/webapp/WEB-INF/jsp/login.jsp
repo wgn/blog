@@ -13,7 +13,6 @@
 	margin: -150px 0 0 -200px;
 	width: 400px;
 	height: 300px;
-	z-index: 99;
 }
 .form-control{
 font-size: large;
@@ -48,10 +47,10 @@ font-size: large;
 			</div>
 		</div>
 	</div>
-	<%@include file="./include/bottomResource.jsp"%>
+
 	<script type="text/javascript">
 	function login(){
-		if(!$("#username").val() || !$("#password").val()){
+		if(!document.getElementById("username").value || !document.getElementById("password").value){
 			alert("用户名密码不能为空哇");
 			return ;
 		}

@@ -3,8 +3,6 @@ package com.zhuani21.blog.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
@@ -19,8 +17,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.Blog;
+import com.zhuani21.blog.auto.bean.User;
 import com.zhuani21.blog.bean.BlogEx;
-import com.zhuani21.blog.bean.BlogJsonVO;
 import com.zhuani21.blog.service.BlogService;
 import com.zhuani21.blog.util.WDate;
 
@@ -33,22 +31,17 @@ public class BlogController {
 	BlogService blogService;
 	
 	@RequestMapping(value={"/admin"},method={RequestMethod.GET})
-	public ModelAndView admin(HttpServletRequest req,HttpServletResponse resp) throws Exception {
-		ModelAndView modelAndView = getBlogList(null, null);
+	public ModelAndView admin(HttpSession session) throws Exception {
+		
+		ModelAndView modelAndView = getBlogList(getUserId(session), 0);
 		//管理员标志
 		modelAndView.addObject("admin",true);
 		
 		return modelAndView;
 	}
-	
-	@RequestMapping(value={"/index"},method={RequestMethod.GET})
-	public ModelAndView index(HttpServletRequest req,HttpServletResponse resp) throws Exception {
-		ModelAndView modelAndView = getBlogList(null, null);
-		return modelAndView;
-	}
 
 	@RequestMapping(value={"/save"},method={RequestMethod.POST})
-	public @ResponseBody Blog save(@RequestBody Blog blog,HttpServletRequest req) throws Exception {
+	public @ResponseBody Blog save(@RequestBody Blog blog,HttpSession session) throws Exception {
 		if(null==blog){
 			return null;
 		}
@@ -59,27 +52,26 @@ public class BlogController {
 			String res = preStr + content+"\r\n\r\n";
 			blog.setContent(res);
 			//其他的值都有默认值，只需要设置这个足够了
-			blog.setUserId(1);
+			blog.setUserId(getUserId(session));
 			blogService.addBlog(blog);
 			return blog;
 		}
 		return null;
 	}
 	
+	private static Integer getUserId(HttpSession session){
+		User user = (User) session.getAttribute("user");
+		return user.getId();
+	}
+	
 	@RequestMapping(value={"/loadMore/{pageIndex}"},method={RequestMethod.GET})
-	public @ResponseBody List<Blog> loadMore(@PathVariable("pageIndex") Integer pageIndex) throws Exception {
-		List<Blog> blogList = blogService.getBlogList(1, pageIndex);
+	public @ResponseBody List<Blog> loadMore(@PathVariable("pageIndex") Integer pageIndex,HttpSession session) throws Exception {
+		List<Blog> blogList = blogService.getBlogList(getUserId(session), pageIndex);
 		return blogList;
 	}
 
 	private ModelAndView getBlogList(Integer userId,Integer page) {
 		ModelAndView modelAndView = new ModelAndView();
-		if(null==userId){
-			userId = 1 ;
-		}
-		if(null== page){
-			page = 0;
-		}
 		//admin的userId是1，先写1测试.页数是0，因为第一次登陆0-100条。
 		List<Blog> blogList = blogService.getBlogList(userId, page);
 		//原来保存文件的方式。

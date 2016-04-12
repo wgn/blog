@@ -38,10 +38,10 @@ overflow:auto;
 </head>
 <body>
 <%@include file="./include/head.jsp" %>
-	<div class="container">
+	<div class="container-fluid">
 		<c:if test="${admin==true }">
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 col-sm-12">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
 			<form>
 				<!-- <table class="table table-bordered">
 					<tr>
@@ -63,7 +63,7 @@ overflow:auto;
 		</div>
 		</c:if>
 		<div class="row">
-			<div id="content" class="col-md-8 col-md-offset-2 col-sm-12">
+			<div id="content" class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
 			<c:if test="${blogList!=null }">
 				<c:forEach var="blog" items="${blogList }">
 				<pre>${blog.content }</pre>
@@ -72,7 +72,7 @@ overflow:auto;
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-8 col-md-offset-2 col-sm-12">
+			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
 			<c:if test="${blogList!=null }">
 				<pre id="loading" class="bot_msg">loading</pre>
 				<pre id="noResult" class="bot_msg">No more results</pre>
