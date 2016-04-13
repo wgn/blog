@@ -14,7 +14,7 @@
 				你好！${user.nickname}<br/>
 				<a href="code/list">编码设置</a><br/>
 				<a href="job/list">复习管理</a><br/>
-				<a href="user/list">用户管理</a><br/>
+				<a href="user/view/list">用户管理</a><br/>
 			</div>
 		</div>
 	</div>

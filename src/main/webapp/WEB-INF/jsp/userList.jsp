@@ -23,7 +23,7 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
-				<form action="${pageContext.request.contextPath }/user/list" method="post">
+				<form action="${pageContext.request.contextPath }/user/view/list" method="post">
 					查询条件：
 					<table class="table table-bordered">
 						<tr>
@@ -35,7 +35,7 @@
 									</c:forEach>
 							</select></td>
 							<td><input class="btn btn-default" type="submit" value="查询" /></td>
-							<td><a href="${pageContext.request.contextPath }/user/add">新增</a></td>
+							<td><a href="${pageContext.request.contextPath }/user/view/add">新增</a></td>
 						</tr>
 					</table>
 					用户列表：
@@ -59,14 +59,14 @@
 									<td>${user.id }</td>
 									<td>${user.nickname }</td>
 									<td>${user.sex}</td>
-									<td>${user.birthdayStr }</td>
+									<td><fmt:formatDate value="${user.birthday }" pattern="yyyy-MM-dd"/> </td>
 									<td>${user.address }</td>
 									<td>${user.email }</td>
 									<td>${user.mobile }</td>
-									<td><a href="${pageContext.request.contextPath }/user/loginSetting/${user.id}">登陆设置</a></td>
-									<td><a href="${pageContext.request.contextPath }/user/copy/${user.id}">新增</a> | 
-									<a href="${pageContext.request.contextPath }/user/edit/id=${user.id}">修改</a> | 
-									<a href="${pageContext.request.contextPath }/user/delete/id=${user.id}">删除</a></td>
+									<td><a href="${pageContext.request.contextPath }/user/view/loginSetting/${user.id}">登陆设置</a></td>
+									<td><a href="${pageContext.request.contextPath }/user/view/copy/${user.id}">新增</a> | 
+									<a href="${pageContext.request.contextPath }/user/view/edit/${user.id}">修改</a> | 
+									<a href="${pageContext.request.contextPath }/user/db/delete/${user.id}">删除</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -76,6 +76,5 @@
 		</div>
 	</div>
 	<hr />
-<%-- <%@include file="./include/bottomResource.jsp" %> --%>
 </body>
 </html>

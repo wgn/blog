@@ -18,4 +18,14 @@ public class UserServiceImpl implements UserService {
 	public List<User> selectUserList() {
 		return userMapper.selectByExample(null);
 	}
+
+	@Override
+	public User selectUserById(Integer userId) {
+		return userMapper.selectByPrimaryKey(userId);
+	}
+
+	@Override
+	public void updateUser(User user) {
+		userMapper.updateByPrimaryKey(user);
+	}
 }

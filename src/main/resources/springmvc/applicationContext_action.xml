@@ -19,17 +19,16 @@
 	
 	<context:component-scan base-package="com.zhuani21.blog.controller"></context:component-scan>
 	<!-- 	<mvc:annotation-driven/> -->
-	<!-- <mvc:annotation-driven conversion-service="conversion-service" /> -->
+	<!-- <mvc:annotation-driven validator="validator" conversion-service="conversion-service" /> -->
 	<!-- 默认的注解映射的支持，自动注册DefaultAnnotationHandlerMapping和AnnotationMethodHandlerAdapter -->  
-	<mvc:annotation-driven validator="validator" conversion-service="conversion-service" />
+	<mvc:annotation-driven validator="validator" conversion-service="conversion-service"/>
 	<!-- 类型转换 -->
     <bean id="conversion-service" class="org.springframework.format.support.FormattingConversionServiceFactoryBean" >
-    	<!-- <property name="converters">
+    	<property name="converters">
     		<list>
     			<bean class="com.zhuani21.blog.controller.converter.StringToDateConverter"/>
-    			<bean class="com.zhuani21.blog.controller.converter.DateToStringConverter"/>
     		</list>
-    	</property> -->
+    	</property>
     </bean>
 
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">

@@ -1,20 +1,18 @@
 package com.zhuani21.blog.controller.converter;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.springframework.core.convert.converter.Converter;
 
-public class DateToStringConverter implements Converter<String, Date> {
+public class DateToStringConverter implements Converter<Date, String> {
 
 	@Override
-	public Date convert(String source) {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		try {
-			return sdf.parse(source);
-		} catch (ParseException e) {
-			throw new RuntimeException(e);
+	public String convert(Date source) {
+		if(source==null){
+			return null;
 		}
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		return sdf.format(source);
 	}
 }
