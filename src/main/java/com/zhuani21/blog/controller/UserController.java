@@ -4,20 +4,18 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.zhuani21.blog.auto.bean.LoginAuth;
 import com.zhuani21.blog.auto.bean.User;
-import com.zhuani21.blog.bean.UserCustom;
-import com.zhuani21.blog.bean.UserVo;
 import com.zhuani21.blog.service.UserService;
-import com.zhuani21.blog.util.BeanCopyUtils;
-
+/**
+ * 这个/user的URL地址被UserManageInterceptor拦截，只有ID为1的用户才能使用相关功能。
+ * @author 吹棉
+ */
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -75,9 +73,31 @@ public class UserController {
 	public ModelAndView add(User user){
 		ModelAndView modelAndView = new ModelAndView();
 		user.setId(null);
-		userService.updateUser(user);
+		userService.insertUser(user);
 		
-		modelAndView.setViewName("userList");
+		modelAndView.setViewName("redirect:/user/view/list");
+		return modelAndView;
+	}
+	@RequestMapping(value={"/view/loginSetting/{userId}"})
+	public ModelAndView loginSettingView(@PathVariable("userId") Integer userId){
+		ModelAndView modelAndView = new ModelAndView();
+		if(null==userId || userId<0){
+			String errorMsg = "用户ID无效";
+			modelAndView.addObject("errorMsg", errorMsg);
+			return modelAndView;
+		}
+		User user = userService.selectUserById(userId);
+		if(null==user){
+			String errorMsg = "用户ID:" + userId + "的信息无效";
+			modelAndView.addObject("errorMsg", errorMsg);
+			return modelAndView;
+		}
+		LoginAuth loginAuth = userService.selectLoginAuthByUserId(userId);
+		if(null!=loginAuth){
+			modelAndView.addObject("loginAuth", loginAuth);
+		}
+		modelAndView.addObject("user", user);
+		modelAndView.setViewName("userLoginAuth");
 		return modelAndView;
 	}
 }

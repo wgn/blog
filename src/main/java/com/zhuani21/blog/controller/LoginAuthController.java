@@ -1,12 +1,10 @@
 package com.zhuani21.blog.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.zhuani21.blog.auto.bean.LoginAuth;
 import com.zhuani21.blog.auto.bean.User;
 import com.zhuani21.blog.service.LoginAuthService;
+import com.zhuani21.blog.util.WConstant;
 
 @Controller
 public class LoginAuthController {
@@ -24,7 +23,7 @@ public class LoginAuthController {
 	@RequestMapping(value={"/index"})
 	public ModelAndView index(HttpSession session) throws Exception {
 		ModelAndView modelAndView = new ModelAndView() ;
-		User user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
 		if(null!=user){
 			modelAndView.setViewName("index");
 		}
@@ -42,7 +41,7 @@ public class LoginAuthController {
 
 	private ModelAndView loginAndSaveSession(HttpSession session, String username, String password) throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
-		User u  = (User) session.getAttribute("user");
+		User u  = (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
 		if(null!=u){
 			modelAndView.setViewName("redirect:/blog/admin");
 			return modelAndView;
@@ -54,7 +53,7 @@ public class LoginAuthController {
 		}
 		User user = loginAuthService.findUserByUsernamePassword(username, password);
 		if(null!=user){
-			session.setAttribute("user", user);
+			session.setAttribute(WConstant.SESSION_LOGIN_USER, user);
 			modelAndView.addObject("user",user);
 			modelAndView.setViewName("redirect:/blog/admin");
 		}else{

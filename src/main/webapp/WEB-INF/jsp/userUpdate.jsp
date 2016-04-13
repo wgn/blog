@@ -19,31 +19,31 @@
 				<table class="table table-bordered">
 					<tr>
 						<td>ID：</td>
-						<td><input type="text" hidden="true" name="id" value="${user.id }" /></td>
+						<td><input type="text" hidden="true" name="id" value="${requestScope.user.id }" /></td>
 					</tr>
 					<tr>
 						<td>昵称：</td>
-						<td><input class="form-control" type="text" name="nickname" value="${user.nickname }" /></td>
+						<td><input class="form-control" type="text" name="nickname" value="${requestScope.user.nickname }" /></td>
 					</tr>
 					<tr>
 						<td>性别：</td>
-						<td><input class="form-control" type="text" name="sex" value="${user.sex }" /></td>
+						<td><input class="form-control" type="text" name="sex" value="${requestScope.user.sex }" /></td>
 					</tr>
 					<tr>
 						<td>生日：</td>
-						<td><input class="form-control" type="text" name="birthday" value='<fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd" />' /></td>
+						<td><input class="form-control" type="text" name="birthday" value='<fmt:formatDate value="${requestScope.user.birthday}" pattern="yyyy-MM-dd" />' /></td>
 					</tr>
 					<tr>
 						<td>地址：</td>
-						<td><textarea class="form-control" name="address" >${user.address }</textarea></td>
+						<td><textarea class="form-control" name="address" >${requestScope.user.address }</textarea></td>
 					</tr>
 					<tr>
 						<td>Email：</td>
-						<td><input class="form-control" type="text" name="email" value="${user.email }" /></td>
+						<td><input class="form-control" type="text" name="email" value="${requestScope.user.email }" /></td>
 					</tr>
 					<tr>
 						<td>电话：</td>
-						<td><input class="form-control" type="text" name="mobile" value="${user.mobile }" /></td>
+						<td><input class="form-control" type="text" name="mobile" value="${requestScope.user.mobile }" /></td>
 					</tr>
 					<tr>
 						<td><input class="btn btn-default" type="button" value="返回" onclick="goBack();"/></td>
