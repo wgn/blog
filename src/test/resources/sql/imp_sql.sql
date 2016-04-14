@@ -87,7 +87,8 @@ CREATE TABLE `login_auth` (
   `password` varchar(24) COLLATE utf8_bin NOT NULL COMMENT '密码',
   `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态：true-有效；false-无效',
   PRIMARY KEY (`id`),
-  UNIQUE KEY `login_user_id` (`user_id`)
+  UNIQUE KEY `login_user_id` (`user_id`),
+   UNIQUE KEY `login_username` (`username`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

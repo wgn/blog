@@ -24,7 +24,8 @@ CREATE TABLE `user` (
    `password` varchar(24) COLLATE utf8_bin NOT NULL COMMENT '密码',
    `status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '状态：1-有效；0-无效。 默认值1',
    PRIMARY KEY (`id`),
-   UNIQUE KEY `login_user_id` (`user_id`)
+   UNIQUE KEY `login_user_id` (`user_id`),
+   UNIQUE KEY `login_username` (`username`)
  ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
  #登陆权限表初始化数据
  insert into login_auth (user_id,username,password) values (1,'admin','1234');
