@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
 		}
 		example.createCriteria().andUserIdEqualTo(userId);
 		List<LoginAuth> loginAuthList = loginAuthMapper.selectByExample(example);
-		if(null!=loginAuthList){
+		if(null!=loginAuthList && loginAuthList.size()>0){
 			if(loginAuthList.size()==1){
 				return loginAuthList.get(0);
 			}else{
@@ -56,5 +56,15 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return null;
+	}
+
+	@Override
+	public void updateLoginAuth(LoginAuth loginAuth) {
+		loginAuthMapper.updateByPrimaryKey(loginAuth);
+	}
+
+	@Override
+	public void insertLoinAuth(LoginAuth loginAuth) {
+		loginAuthMapper.insertSelective(loginAuth);
 	}
 }

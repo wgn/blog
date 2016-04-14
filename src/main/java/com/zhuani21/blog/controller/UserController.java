@@ -1,6 +1,7 @@
 package com.zhuani21.blog.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.LoginAuth;
 import com.zhuani21.blog.auto.bean.User;
+import com.zhuani21.blog.bean.validator.LoginAuthValidator;
 import com.zhuani21.blog.service.UserService;
 /**
  * 这个/user的URL地址被UserManageInterceptor拦截，只有ID为1的用户才能使用相关功能。
@@ -84,12 +86,14 @@ public class UserController {
 		if(null==userId || userId<0){
 			String errorMsg = "用户ID无效";
 			modelAndView.addObject("errorMsg", errorMsg);
+			modelAndView.setViewName("errorMsg");
 			return modelAndView;
 		}
 		User user = userService.selectUserById(userId);
 		if(null==user){
 			String errorMsg = "用户ID:" + userId + "的信息无效";
 			modelAndView.addObject("errorMsg", errorMsg);
+			modelAndView.setViewName("errorMsg");
 			return modelAndView;
 		}
 		LoginAuth loginAuth = userService.selectLoginAuthByUserId(userId);
@@ -98,6 +102,27 @@ public class UserController {
 		}
 		modelAndView.addObject("user", user);
 		modelAndView.setViewName("userLoginAuth");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value={"/db/loginSetting"},method={RequestMethod.POST})
+	public ModelAndView loginSettingDB(LoginAuth loginAuth){
+		ModelAndView modelAndView = new ModelAndView();
+		Integer id = loginAuth.getId();
+		List<String> list =  LoginAuthValidator.validate(loginAuth);
+		if(null!=list){
+			modelAndView.addObject("errorMsg", list.get(0));
+			modelAndView.setViewName("errorMsg");
+			return modelAndView;
+		}
+
+		if(null!=id){
+			userService.updateLoginAuth(loginAuth);
+		}else{
+			userService.insertLoinAuth(loginAuth);
+		}
+		
+		modelAndView.setViewName("redirect:/user/view/list");
 		return modelAndView;
 	}
 }

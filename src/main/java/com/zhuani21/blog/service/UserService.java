@@ -17,4 +17,8 @@ public interface UserService {
 
 	public LoginAuth selectLoginAuthByUserId(Integer userId);
 
+	public void updateLoginAuth(LoginAuth loginAuth);
+
+	public void insertLoinAuth(LoginAuth loginAuth);
+
 }

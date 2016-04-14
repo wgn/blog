@@ -33,9 +33,10 @@ font-size: large;
 							<td><input class="form-control" placeholder="Password" type="password" id="password" name="password" /></td>
 						</tr>
 						<tr>
-							<td align="center"><input class="btn btn-default" type="button" onclick="login();" value="登陆"></td>
+							<td align="center"> <input class="btn btn-default" type="button" onclick="login();" value="登陆"></td>
 						</tr>
 					</table>
+					<div align="right"><label><input class="form-control" type="checkbox">请记住我</label></div>
 				</form>
 			</div>
 		</div>
