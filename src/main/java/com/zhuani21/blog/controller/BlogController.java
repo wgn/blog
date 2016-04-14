@@ -20,6 +20,7 @@ import com.zhuani21.blog.auto.bean.Blog;
 import com.zhuani21.blog.auto.bean.User;
 import com.zhuani21.blog.bean.BlogEx;
 import com.zhuani21.blog.service.BlogService;
+import com.zhuani21.blog.util.WConstant;
 import com.zhuani21.blog.util.WDate;
 
 @Controller
@@ -60,7 +61,7 @@ public class BlogController {
 	}
 	
 	private static Integer getUserId(HttpSession session){
-		User user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
 		return user.getId();
 	}
 	

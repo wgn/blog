@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.User;
+import com.zhuani21.blog.util.WConstant;
 
 public class UserManageInterceptor implements HandlerInterceptor {
 
@@ -16,7 +17,7 @@ public class UserManageInterceptor implements HandlerInterceptor {
 			throws Exception {
 		HttpSession session = request.getSession();
 		
-		User user = (User) session.getAttribute("user");
+		User user = (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
 		if(null!=user && user.getId()==1){
 			return true;
 		}

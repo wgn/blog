@@ -5,10 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.core.convert.converter.Converter;
 
 public class StringToDateConverter implements Converter<String, Date> {
-
+	private static Logger logger = Logger.getLogger(StringToDateConverter.class); 
 	@Override
 	public Date convert(String source) {
 		String pattern = null;
@@ -67,6 +68,7 @@ public class StringToDateConverter implements Converter<String, Date> {
 		try {
 			return sdf.parse(source);
 		} catch (ParseException e) {
+			logger.error("前台日期格式转换bean属性出错", e);
 			throw new RuntimeException(e);
 		}
 	}
