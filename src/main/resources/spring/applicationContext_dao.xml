@@ -32,6 +32,7 @@
       	<property name="testWhileIdle" value="true" />
       	<property name="testOnBorrow" value="false" />
       	<property name="testOnReturn" value="false" />
+      	<property name="filters"><value>stat</value></property>
 	</bean>
 	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
 		基本属性 url、user、password
@@ -74,8 +75,10 @@
       	<servlet-name>DruidStatView</servlet-name>
       	<url-pattern>/druid/*</url-pattern>
   	<servlet-mapping>
-	通过 http://ip:port/druid/ 地址访问即可 -->
-	
+	通过 http://ip:port/druid/ 地址访问即可
+	更多信息：
+	https://github.com/AlibabaTech/druid/wiki-->
+<!-- ##################################################################################### -->
 	<!-- C3P0数据库连接池的配置 -->
 	<!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">  
         <property name="driverClass"><value>oracle.jdbc.driver.OracleDriver</value></property>  

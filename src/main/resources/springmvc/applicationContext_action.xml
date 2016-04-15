@@ -78,5 +78,9 @@
 			<mvc:mapping path="/user/**"/>
 			<bean class="com.zhuani21.blog.interceptor.UserManageInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/log/**"/>
+			<bean class="com.zhuani21.blog.interceptor.LogManageInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 </beans>

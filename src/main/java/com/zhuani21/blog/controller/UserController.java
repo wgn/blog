@@ -25,7 +25,7 @@ public class UserController {
 	UserService userService;
 	
 	@RequestMapping("/view/list")
-	public ModelAndView list() throws Exception {
+	public ModelAndView listView() throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
 		List<User> userList = userService.selectUserList();
 		if(null!=userList && userList.size()>0){
@@ -45,7 +45,7 @@ public class UserController {
 	}
 	
 	@RequestMapping("/db/edit")
-	public ModelAndView edit( User user){
+	public ModelAndView editDB( User user){
 		System.out.println(user);
 		
 		ModelAndView modelAndView = new ModelAndView();
@@ -72,7 +72,7 @@ public class UserController {
 		return modelAndView;
 	}
 	@RequestMapping(value={"/db/add"}, method={RequestMethod.POST})
-	public ModelAndView add(User user){
+	public ModelAndView addDB(User user){
 		ModelAndView modelAndView = new ModelAndView();
 		user.setId(null);
 		userService.insertUser(user);
