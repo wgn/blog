@@ -153,19 +153,26 @@
 		<!--  mybatis spring 整合包 -->
 		<!-- 数据库连接池 -->
 		<!-- dbcp数据库连接池 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>commons-dbcp</groupId>
 			<artifactId>commons-dbcp</artifactId>
 			<version>1.4</version>
-		</dependency>
+		</dependency> -->
 		<!-- dbcp数据库连接池 -->
 		<!-- c3p0数据库连接池 -->
-		<dependency>
+		<!-- <dependency>
 			<groupId>c3p0</groupId>
 			<artifactId>c3p0</artifactId>
 			<version>0.9.1.2</version>
-		</dependency>
+		</dependency> -->
 		<!-- c3p0数据库连接池 -->
+		<!-- druid数据库连接池 ,兼容dbcp-->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.18</version>
+		</dependency>
+		<!-- druid数据库连接池 -->
 		
 		<dependency>
 			<groupId>org.hibernate</groupId>
