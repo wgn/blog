@@ -201,6 +201,12 @@
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.11</version>
 		</dependency>
+		<!-- javamelody 监控 -->
+		<dependency>
+			<groupId>net.bull.javamelody</groupId>
+			<artifactId>javamelody-core</artifactId>
+			<version>1.58.0</version>
+		</dependency>
 		
 	</dependencies>
 	
