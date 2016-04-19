@@ -50,6 +50,16 @@
 	    <filter-name>encodingFilter</filter-name>  
 	    <url-pattern>/*</url-pattern>  
 	</filter-mapping>
+	
+	<filter>
+	    <filter-name>monitoringLoginFilter</filter-name>
+	    <filter-class>com.zhuani21.blog.filter.SomeFilter</filter-class>
+	</filter>
+	<filter-mapping>
+	    <filter-name>monitoringLoginFilter</filter-name>
+	    <url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
 	<!-- javamelody 监控 -->
 	<filter>
 	    <filter-name>monitoring</filter-name>
