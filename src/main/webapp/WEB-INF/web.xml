@@ -52,12 +52,12 @@
 	</filter-mapping>
 	
 	<filter>
-	    <filter-name>monitoringLoginFilter</filter-name>
+	    <filter-name>some</filter-name>
 	    <filter-class>com.zhuani21.blog.filter.SomeFilter</filter-class>
 	</filter>
 	<filter-mapping>
-	    <filter-name>monitoringLoginFilter</filter-name>
-	    <url-pattern>/*</url-pattern>
+	    <filter-name>some</filter-name>
+	    <url-pattern>/monitoring</url-pattern>
 	</filter-mapping>
 	
 	<!-- javamelody 监控 -->

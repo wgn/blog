@@ -109,7 +109,7 @@ public class UserController {
 	public ModelAndView loginSettingDB(LoginAuth loginAuth){
 		ModelAndView modelAndView = new ModelAndView();
 		Integer id = loginAuth.getId();
-		List<String> list =  LoginAuthValidator.validate(loginAuth);
+		List<String> list = LoginAuthValidator.validate(loginAuth);
 		if(null!=list){
 			modelAndView.addObject("errorMsg", list.get(0));
 			modelAndView.setViewName("errorMsg");
