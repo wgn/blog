@@ -36,7 +36,7 @@ font-size: large;
 							<td align="center"> <input class="btn btn-default" type="button" onclick="login();" value="登陆"></td>
 						</tr>
 					</table>
-					<div align="right"><label><input class="form-control" type="checkbox">请记住我</label></div>
+					<div align="right"><label><input name="remember" value="1" class="form-control" type="checkbox">记住一周</label></div>
 				</form>
 			</div>
 		</div>
