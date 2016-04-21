@@ -7,9 +7,11 @@
 	<context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
+        	classpath:net/bull/javamelody/monitoring-spring.xml,
             classpath:spring/applicationContext_dao.xml,
             classpath:spring/applicationContext_transaction.xml,
             classpath:spring/applicationContext_service.xml
+            
         </param-value>
     </context-param>
     	<!-- 加载spring容器 -->
