@@ -1,6 +1,7 @@
 package com.zhuani21.blog.controller;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -55,7 +56,7 @@ public class BlogController {
 			//其他的值都有默认值，只需要设置这个足够了
 			blog.setUserId(getUserId(session));
 			blogService.addBlog(blog);
-			return blog;
+			return transferBlog(blog);
 		}
 		return null;
 	}
@@ -75,10 +76,33 @@ public class BlogController {
 		ModelAndView modelAndView = new ModelAndView();
 		//admin的userId是1，先写1测试.页数是0，因为第一次登陆0-100条。
 		List<Blog> blogList = blogService.getBlogList(userId, page);
+		List<Blog> newBlogList = transferBlogList(blogList);
 		//原来保存文件的方式。
-		modelAndView.addObject("blogList", blogList);
+		modelAndView.addObject("blogList", newBlogList);
 		modelAndView.addObject("pageIndex", BlogEx.ONE_PAGE_COUNT);
 		modelAndView.setViewName("blogIndex");
 		return modelAndView;
+	}
+	/**
+	 * 因为某些人总是上传一些标签代码什么的，讨厌死了，没办法我要对文本内容进行一下过滤。
+	 * @param blogList
+	 * @return
+	 */
+	private List<Blog> transferBlogList(List<Blog> blogList) {
+		List<Blog> resList = new ArrayList<Blog>();
+		if(null!=blogList){
+			for(Blog b:blogList){
+				resList.add(transferBlog(b));
+			}
+		}
+		return resList;
+	}
+	private Blog transferBlog(Blog blog){
+		String key = "&lt;";
+		String newContent = blog.getContent().replaceAll("<", key);
+		newContent = newContent.replaceAll(key+"img", "<img").replaceAll(key+"/img", "</img");
+		newContent = newContent.replaceAll(key+"a", "<a").replaceAll(key+"/a", "</a");
+		blog.setContent(newContent);
+		return blog;
 	}
 }

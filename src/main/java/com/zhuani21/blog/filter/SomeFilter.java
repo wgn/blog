@@ -1,7 +1,6 @@
 package com.zhuani21.blog.filter;
 
 import java.io.IOException;
-import java.util.Enumeration;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -36,7 +35,6 @@ public class SomeFilter implements Filter{
 		}
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) response;
-		
 		
 		if(!filterMelodyMonitor(req)){
 			String contextPath = req.getContextPath();

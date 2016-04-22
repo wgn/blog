@@ -15,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.zhuani21.blog.auto.bean.LoginAuth;
 import com.zhuani21.blog.auto.bean.User;
+import com.zhuani21.blog.data.CookieMapper;
 import com.zhuani21.blog.service.LoginAuthService;
-import com.zhuani21.blog.util.CookieMapper;
 import com.zhuani21.blog.util.WConstant;
 import com.zhuani21.blog.util.WebRequestUtils;
 

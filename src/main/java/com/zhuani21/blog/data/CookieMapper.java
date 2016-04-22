@@ -1,15 +1,15 @@
-package com.zhuani21.blog.util;
+package com.zhuani21.blog.data;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.commons.lang3.StringUtils;
 
 import com.zhuani21.blog.auto.bean.User;
 
 public class CookieMapper{
-	private static Map<String,User> map  = new HashMap<String,User>(); 
-	private static Map<Integer,String> uidMap = new HashMap<Integer,String>(); 
+	private static Map<String,User> map  = new ConcurrentHashMap<String,User>(); 
+	private static Map<Integer,String> uidMap = new ConcurrentHashMap<Integer,String>(); 
 	public static final void put(String k,User user){
 		String key = uidMap.get(user.getId());
 		if(StringUtils.isNoneBlank(key)){
