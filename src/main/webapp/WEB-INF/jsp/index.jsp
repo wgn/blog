@@ -8,6 +8,7 @@
 <title>登陆成功</title>
 </head>
 <body>
+<%@include file="./include/head.jsp" %>
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8 col-md-offset-2">

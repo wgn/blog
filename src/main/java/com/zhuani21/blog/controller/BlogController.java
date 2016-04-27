@@ -32,8 +32,8 @@ public class BlogController {
 	@Autowired
 	BlogService blogService;
 	
-	@RequestMapping(value={"/admin"},method={RequestMethod.GET})
-	public ModelAndView admin(HttpSession session) throws Exception {
+	@RequestMapping(value={"/index"},method={RequestMethod.GET})
+	public ModelAndView index(HttpSession session) throws Exception {
 		
 		ModelAndView modelAndView = getBlogList(getUserId(session), 0);
 		//管理员标志

@@ -20,5 +20,7 @@ public interface UserService {
 	public void updateLoginAuth(LoginAuth loginAuth);
 
 	public void insertLoinAuth(LoginAuth loginAuth);
+	
+	public void updateLoginAuthSelective(LoginAuth loginAuth);
 
 }

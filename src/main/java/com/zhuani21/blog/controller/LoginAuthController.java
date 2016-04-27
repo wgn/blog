@@ -53,7 +53,7 @@ public class LoginAuthController {
 		
 		dealCookieAndSession(req,resp,user);
 
-		modelAndView.setViewName("redirect:/blog/admin");
+		modelAndView.setViewName("redirect:/blog/index");
 		return modelAndView;
 	}
 	
@@ -80,7 +80,7 @@ public class LoginAuthController {
 		
 		dealCookieAndSession(req,resp,user);
 
-		modelAndView.setViewName("redirect:/blog/admin");
+		modelAndView.setViewName("redirect:/blog/index");
 		return modelAndView;
 	}
 

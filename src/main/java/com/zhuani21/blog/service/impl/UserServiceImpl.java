@@ -67,4 +67,9 @@ public class UserServiceImpl implements UserService {
 	public void insertLoinAuth(LoginAuth loginAuth) {
 		loginAuthMapper.insertSelective(loginAuth);
 	}
+
+	@Override
+	public void updateLoginAuthSelective(LoginAuth loginAuth) {
+		loginAuthMapper.updateByPrimaryKeySelective(loginAuth);
+	}
 }
