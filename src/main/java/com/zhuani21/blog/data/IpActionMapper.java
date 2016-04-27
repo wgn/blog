@@ -65,8 +65,8 @@ public class IpActionMapper {
 				//logger.info("pass," + ip + ",reset access count=1");
 				timeMap.put(ip, nowTime);
 				countMap.put(ip, 1);
+				return true;
 			}
 		}
-		return false;
 	}
 }

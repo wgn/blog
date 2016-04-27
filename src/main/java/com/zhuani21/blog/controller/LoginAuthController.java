@@ -44,13 +44,12 @@ public class LoginAuthController {
 		user = checkSession(req.getSession());
 		//2,check cookie
 		if(null==user){
-			user = checkCookie(req);
+			user = WebRequestUtils.getUserFromCookie(req);
 		}
 		if(null==user){
 			modelAndView.setViewName("login");
 			return modelAndView;
 		}
-		
 		dealCookieAndSession(req,resp,user);
 
 		modelAndView.setViewName("redirect:/blog/index");
@@ -65,7 +64,7 @@ public class LoginAuthController {
 		user = checkSession(req.getSession());
 		//2,check cookie
 		if(null==user){
-			user = checkCookie(req);
+			user = WebRequestUtils.getUserFromCookie(req);
 		}
 		//3,check username & password
 		if(null==user){
@@ -109,23 +108,6 @@ public class LoginAuthController {
 		return loginAuthService.findUserByUsernamePassword(username, password);
 	}
 
-	private User checkCookie(HttpServletRequest req) {
-		Cookie cookie = getCookieByName(req,WConstant.COOKIE_LOGIN_KEY);
-		if(null!=cookie){
-			String value = cookie.getValue();
-			String ip = WebRequestUtils.getIp(req);
-			if(StringUtils.isNoneBlank(value) && StringUtils.isNoneBlank(ip)){
-				User user = CookieMapper.get(ip + value);
-				/*if(null!=user){
-					CookieMapper.remove(ip + value);
-				}*/
-				return user;
-			}
-		}
-		return null;
-	}
-
-
 	private User checkSession(HttpSession session) {
 		return (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
 	}
@@ -156,23 +138,5 @@ public class LoginAuthController {
 		cookie.setPath("/");
 		response.addCookie(cookie);
 	}
-	private  Cookie getCookieByName(HttpServletRequest request,String name){
-	        Map<String,Cookie> cookieMap = ReadCookieMap(request);
-	        if(cookieMap.containsKey(name)){
-	            Cookie cookie = (Cookie)cookieMap.get(name);
-	            return cookie;
-	    }else{
-	         return null;
-	    }   
-	}
-	private  Map<String,Cookie> ReadCookieMap(HttpServletRequest request){  
-        Map<String,Cookie> cookieMap = new HashMap<String,Cookie>();
-        Cookie[] cookies = request.getCookies();
-        if(null!=cookies){
-            for(Cookie cookie : cookies){
-                cookieMap.put(cookie.getName(), cookie);
-            }
-        }
-        return cookieMap;
-    }
+	
 }

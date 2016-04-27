@@ -4,10 +4,16 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
+
+import com.zhuani21.blog.auto.bean.User;
+import com.zhuani21.blog.data.CookieMapper;
 
 
 public class WebRequestUtils {
@@ -170,4 +176,38 @@ public class WebRequestUtils {
 		return StringUtils.trimToNull(ip);
 	}
 	
+	public static User getUserFromCookie(HttpServletRequest req) {
+		Cookie cookie = getCookieByName(req,WConstant.COOKIE_LOGIN_KEY);
+		if(null!=cookie){
+			String value = cookie.getValue();
+			String ip = WebRequestUtils.getIp(req);
+			if(StringUtils.isNoneBlank(value) && StringUtils.isNoneBlank(ip)){
+				User user = CookieMapper.get(ip + value);
+				/*if(null!=user){
+					CookieMapper.remove(ip + value);
+				}*/
+				return user;
+			}
+		}
+		return null;
+	}
+	private static  Cookie getCookieByName(HttpServletRequest request,String name){
+        Map<String,Cookie> cookieMap = ReadCookieMap(request);
+        if(cookieMap.containsKey(name)){
+            Cookie cookie = (Cookie)cookieMap.get(name);
+            return cookie;
+    }else{
+         return null;
+    }   
+}
+private static  Map<String,Cookie> ReadCookieMap(HttpServletRequest request){  
+    Map<String,Cookie> cookieMap = new HashMap<String,Cookie>();
+    Cookie[] cookies = request.getCookies();
+    if(null!=cookies){
+        for(Cookie cookie : cookies){
+            cookieMap.put(cookie.getName(), cookie);
+        }
+    }
+    return cookieMap;
+}
 }

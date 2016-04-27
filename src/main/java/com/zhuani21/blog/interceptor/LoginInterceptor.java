@@ -9,6 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.User;
 import com.zhuani21.blog.util.WConstant;
+import com.zhuani21.blog.util.WebRequestUtils;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
@@ -18,9 +19,17 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		
 		User user = (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
+		
+		if(null==user){
+			user = WebRequestUtils.getUserFromCookie(request);
+			
+			session.setAttribute(WConstant.SESSION_LOGIN_USER, user);
+		}
+		
 		if(null!=user){
 			return true;
 		}
+
 		String contextPath = request.getContextPath();
 		response.sendRedirect(contextPath + "/login");
 		return false;

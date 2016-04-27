@@ -13,6 +13,7 @@
 		http://www.springframework.org/schema/tx 
 		http://www.springframework.org/schema/tx/spring-tx.xsd ">
 		
+	<mvc:resources location="/WEB-INF/css/images/favicon.ico" mapping="/favicon.ico" />
 	<mvc:resources location="/WEB-INF/js/" mapping="/js/**" />
 	<mvc:resources location="/WEB-INF/libs/" mapping="/libs/**" />
 	<mvc:resources location="/WEB-INF/css/" mapping="/css/**" />
