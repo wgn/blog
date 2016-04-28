@@ -6,6 +6,9 @@
 <head>
 <%@include file="./include/headResource.jsp" %>
 <style type="text/css"> 
+img{
+	max-width:100%;
+}
  .comments { 
  width:100%;/*自动适应父布局宽度*/ 
 overflow:auto; 
@@ -28,8 +31,13 @@ overflow:auto;
     -webkit-margin-end: 0px;
  }
  pre{
- font-size:1em;
- background-color: rgba(15, 144, 29, 0.15);
+	font-size:1em;
+	background-color: rgba(15, 144, 29, 0.15);
+	white-space: pre-wrap;       
+	white-space: -moz-pre-wrap;  
+	white-space: -pre-wrap;      
+	white-space: -o-pre-wrap;    
+	word-wrap: break-word;       
  }
  </style> 
 
