@@ -1,8 +1,6 @@
 package com.zhuani21.blog.bean;
 
-import java.util.Date;
-
-public class UserVo {
+public class UserVO {
 	private Integer id;
 	
 	 private String nickname;

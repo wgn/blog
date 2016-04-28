@@ -5,13 +5,10 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.multipart.MultipartFile;
@@ -21,12 +18,11 @@ import com.zhuani21.blog.auto.bean.Job;
 import com.zhuani21.blog.bean.JobCustom;
 import com.zhuani21.blog.service.JobService;
 import com.zhuani21.blog.util.BeanCopyUtils;
+import com.zhuani21.blog.util.WConstant;
 
 @Controller
 @RequestMapping("/job")
 public class JobController {
-	private static final String FILE_DIR = "D:\\blogTempFolder\\";
-	
 	
 	@Autowired
 	JobService jobService;
@@ -37,7 +33,7 @@ public class JobController {
 		List<Job> jobList = jobService.queryJobList();
 		List<JobCustom> jobCustomList = BeanCopyUtils.getCustomBeanList(jobList, JobCustom.class);
 		modelAndView.addObject("jobList", jobCustomList);
-		modelAndView.addObject("fileDir", FILE_DIR);
+		modelAndView.addObject("fileDir", WConstant.FILE_DIR);
 		modelAndView.setViewName("jobList");
 		return modelAndView;
 	}
@@ -47,8 +43,8 @@ public class JobController {
 		String opType = "add";
 		return addAndEditView(id, opType);
 	}
-	@RequestMapping(value={"edit"},method={RequestMethod.GET})
-	public ModelAndView editView(Integer id) throws Exception {
+	@RequestMapping(value={"/edit/{id}"},method={RequestMethod.GET})
+	public ModelAndView editView(@PathVariable Integer id) throws Exception {
 		String opType = "edit";
 		return addAndEditView(id, opType);
 	}
@@ -63,17 +59,26 @@ public class JobController {
 		modelAndView.setViewName("jobUpdate");
 		return modelAndView;
 	}
+	private ModelAndView addAndEditView(Job job, String opType) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("opType", opType);
+		if(null!=job){
+			modelAndView.addObject("job", job);
+		}
+		modelAndView.setViewName("jobUpdate");
+		return modelAndView;
+	}
 	
 	@RequestMapping(value={"/add"},method={RequestMethod.POST})
 	public String addJob(JobCustom job,MultipartFile jobFile) throws Exception {
-		String[] fileNames = saveFile(jobFile,FILE_DIR); 
+		String[] fileNames = saveFile(jobFile,WConstant.FILE_DIR); 
 		if(null!=fileNames && fileNames.length==2){
 			job.setOldFilename(fileNames[0]);
 		    job.setFilepath(fileNames[1]);
 		}
 	    job.setJobId(null);
 	    jobService.insertJob(job);
-		return "redirect:/job/list.action";
+		return "redirect:/job/add/";
 	}
 
 	private String[] saveFile(MultipartFile jobFile, String newFileDir) throws IOException {
@@ -106,9 +111,15 @@ public class JobController {
 		return names;
 	}
 	@RequestMapping(value={"edit"},method={RequestMethod.POST})
-	public ModelAndView editJob(Integer id) throws Exception {
-		String opType = "edit";
-		return addAndEditView(id, opType);
+	public ModelAndView editJob(JobCustom job,MultipartFile jobFile) throws Exception {
+		String[] fileNames = saveFile(jobFile,WConstant.FILE_DIR); 
+		if(null!=fileNames && fileNames.length==2){
+			job.setOldFilename(fileNames[0]);
+		    job.setFilepath(fileNames[1]);
+		}
+	    job.setJobId(null);
+	    jobService.insertJob(job);
+		return null;
 	}
 	
 }
