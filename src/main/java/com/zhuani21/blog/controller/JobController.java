@@ -19,6 +19,7 @@ import com.zhuani21.blog.bean.JobCustom;
 import com.zhuani21.blog.service.JobService;
 import com.zhuani21.blog.util.BeanCopyUtils;
 import com.zhuani21.blog.util.WConstant;
+import com.zhuani21.blog.util.WID;
 
 @Controller
 @RequestMapping("/job")
@@ -121,5 +122,4 @@ public class JobController {
 	    jobService.insertJob(job);
 		return null;
 	}
-	
 }

@@ -27,8 +27,11 @@
 							<td><input type="text" class="form-control" name="jobName" value="${job.jobName }" /></td>
 						</tr>
 						<tr>
-							<td>复习周期类型：</td>
-							<td><input type="text" class="form-control" name="jobCycleType" value="${job.jobCycleType }" /></td>
+							<td>复习类型：</td>
+							<td><select class="form-control"  name="jobCycleType">
+							         <option value="review" <c:if test="${job.jobCycleType=='review' }">selected="selected"</c:if>>周期复习</option>
+							         <option value="reread" <c:if test="${job.jobCycleType=='reread' }">selected="selected"</c:if>>远期重读</option>
+							     </select></td>
 						</tr>
 						<tr>
 							<td>详情描述：</td>
