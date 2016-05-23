@@ -1,6 +1,7 @@
 package com.zhuani21.blog.auto.bean;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class JobExample {
@@ -651,6 +652,196 @@ public class JobExample {
 
         public Criteria andFilepathNotBetween(String value1, String value2) {
             addCriterion("filepath not between", value1, value2, "filepath");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingIsNull() {
+            addCriterion("cycle_setting is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingIsNotNull() {
+            addCriterion("cycle_setting is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingEqualTo(String value) {
+            addCriterion("cycle_setting =", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingNotEqualTo(String value) {
+            addCriterion("cycle_setting <>", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingGreaterThan(String value) {
+            addCriterion("cycle_setting >", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingGreaterThanOrEqualTo(String value) {
+            addCriterion("cycle_setting >=", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingLessThan(String value) {
+            addCriterion("cycle_setting <", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingLessThanOrEqualTo(String value) {
+            addCriterion("cycle_setting <=", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingLike(String value) {
+            addCriterion("cycle_setting like", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingNotLike(String value) {
+            addCriterion("cycle_setting not like", value, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingIn(List<String> values) {
+            addCriterion("cycle_setting in", values, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingNotIn(List<String> values) {
+            addCriterion("cycle_setting not in", values, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingBetween(String value1, String value2) {
+            addCriterion("cycle_setting between", value1, value2, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andCycleSettingNotBetween(String value1, String value2) {
+            addCriterion("cycle_setting not between", value1, value2, "cycleSetting");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeIsNull() {
+            addCriterion("reread_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeIsNotNull() {
+            addCriterion("reread_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeEqualTo(Integer value) {
+            addCriterion("reread_time =", value, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeNotEqualTo(Integer value) {
+            addCriterion("reread_time <>", value, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeGreaterThan(Integer value) {
+            addCriterion("reread_time >", value, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("reread_time >=", value, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeLessThan(Integer value) {
+            addCriterion("reread_time <", value, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeLessThanOrEqualTo(Integer value) {
+            addCriterion("reread_time <=", value, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeIn(List<Integer> values) {
+            addCriterion("reread_time in", values, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeNotIn(List<Integer> values) {
+            addCriterion("reread_time not in", values, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeBetween(Integer value1, Integer value2) {
+            addCriterion("reread_time between", value1, value2, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andRereadTimeNotBetween(Integer value1, Integer value2) {
+            addCriterion("reread_time not between", value1, value2, "rereadTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }

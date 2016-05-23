@@ -17,12 +17,12 @@
 	<context:property-placeholder location="classpath:db.properties" />
 	<!-- 配置数据源 ，dbcp -->
 
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+	<bean id="mysqlDataSource" class="com.alibaba.druid.pool.DruidDataSource"
 		destroy-method="close">
-		<property name="driverClassName" value="${jdbc.driver}" />
-		<property name="url" value="${jdbc.url}" />
-		<property name="username" value="${jdbc.username}" />
-		<property name="password" value="${jdbc.password}" />
+		<property name="driverClassName" value="${mysql.jdbc.driver}" />
+		<property name="url" value="${mysql.jdbc.url}" />
+		<property name="username" value="${mysql.jdbc.username}" />
+		<property name="password" value="${mysql.jdbc.password}" />
 		<property name="initialSize" value="1" />
 		<property name="minIdle" value="1" /> 
 		<property name="maxActive" value="20" />
@@ -33,6 +33,28 @@
       	<property name="testOnBorrow" value="false" />
       	<property name="testOnReturn" value="false" />
       	<property name="filters"><value>stat</value></property>
+	</bean>
+	
+	<bean id="sqliteDataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close">
+		<property name="driverClassName" value="${sqlite.jdbc.driver}"/>
+		<property name="url" value="${sqlite.jdbc.url}"/>
+		<property name="username" value="${sqlite.jdbc.username}"/>
+		<property name="password" value="${sqlite.jdbc.password}"/>
+		<property name="initialSize" value="1" />
+		<property name="minIdle" value="1" /> 
+		<property name="maxActive" value="20" />
+		<property name="maxWait" value="20000" />
+		<property name="timeBetweenEvictionRunsMillis" value="300000" />
+		<property name="validationQuery" value="SELECT 1" />
+      	<property name="testWhileIdle" value="true" />
+      	<property name="testOnBorrow" value="false" />
+      	<property name="testOnReturn" value="false" />
+      	<property name="filters"><value>stat</value></property>
+	</bean>
+	
+	<bean id="sqliteSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="sqliteDataSource"/>
+		<property name="configLocation" value="classpath:mybatis/sqliteSqlMapConfig.xml"></property>
 	</bean>
 	<!-- <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close"> 
 		基本属性 url、user、password
@@ -108,9 +130,9 @@
     </bean> -->
 	
 	<!-- sqlSessionFactory -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="mysqlSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<!-- 数据库连接池 -->
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="mysqlDataSource" />
 		<!-- 加载mybatis的全局配置文件 -->
 		<property name="configLocation" value="classpath:mybatis/sqlMapConfig.xml" />
 	</bean>
@@ -119,7 +141,13 @@
 		<!-- 扫描包路径，如果需要扫描多个包，中间使用半角逗号隔开 -->
 		<property name="basePackage" value="com.zhuani21.blog.dao,com.zhuani21.blog.auto.mapper"></property>
 		<!-- 不能使用<property name="sqlSessionFactory" ref="sqlSessionFactory" />，否则获取不到连接 -->
-		<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory" />
+		<property name="sqlSessionFactoryBeanName" value="mysqlSqlSessionFactory" />
+	</bean>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<!-- 扫描包路径，如果需要扫描多个包，中间使用半角逗号隔开 -->
+		<property name="basePackage" value="com.zhuani21.blog.sqlite.dao"></property>
+		<!-- 不能使用<property name="sqlSessionFactory" ref="sqliteSqlSessionFactory" />，否则获取不到连接 -->
+		<property name="sqlSessionFactoryBeanName" value="sqliteSqlSessionFactory" />
 	</bean>
 </beans>
 

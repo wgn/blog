@@ -4,7 +4,7 @@ public class WID {
 	private static int i = 0;
 	public static void main(String[] args) {
 		for(int a=0;a<115;a++){
-			get();
+			System.out.println(get());		
 		}
 	}
 	//return -时间戳毫秒（13位）+流水号（2位）+ 机器编号(1位)
@@ -15,7 +15,7 @@ public class WID {
 		long l = System.currentTimeMillis();
 		String id =  l + index + mno;
 		i++;
-		System.out.println(mno + ":" + l + ":" + index + ":" + id);
+		//System.out.println(mno + ":" + l + ":" + index + ":" + id);
 		return id;
 	}
 	public synchronized static String get(){

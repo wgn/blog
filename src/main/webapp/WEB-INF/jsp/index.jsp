@@ -12,10 +12,16 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-xs-8 col-md-offset-2">
-				你好！${user.nickname}<br/>
-				<a href="code/list">编码设置</a><br/>
-				<a href="job/list">复习管理</a><br/>
-				<a href="user/view/list">用户管理</a><br/>
+				你好！${sessionScope.session_login_user.nickname}<br/><hr/><br/>
+				<table class="table table-bordered">
+					<tr><td><a href="code/list">编码设置</a></td></tr>
+					<tr><td><a href="job/list">复习管理</a></td></tr>
+					<tr><td><a href="user/view/list">用户管理</a></td></tr>
+					<tr><td><a href="blog/index">日小记</a></td></tr>
+					<tr><td><a href="monitoring">监控</a></td></tr>
+					<tr><td><a href="dbaction/tableList">SQLite</a><br/>
+				</tr>
+				</table>
 			</div>
 		</div>
 	</div>

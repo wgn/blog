@@ -14,6 +14,8 @@ import org.apache.commons.lang3.StringUtils;
 
 import com.zhuani21.blog.auto.bean.User;
 import com.zhuani21.blog.data.CookieMapper;
+import com.zhuani21.blog.data.SysProperties;
+import com.zhuani21.blog.sqlite.service.CookieService;
 
 
 public class WebRequestUtils {
@@ -176,16 +178,20 @@ public class WebRequestUtils {
 		return StringUtils.trimToNull(ip);
 	}
 	
-	public static User getUserFromCookie(HttpServletRequest req) {
+	public static User getUserFromCookie(HttpServletRequest req, CookieService cookieService) {
 		Cookie cookie = getCookieByName(req,WConstant.COOKIE_LOGIN_KEY);
 		if(null!=cookie){
 			String value = cookie.getValue();
 			String ip = WebRequestUtils.getIp(req);
 			if(StringUtils.isNoneBlank(value) && StringUtils.isNoneBlank(ip)){
-				User user = CookieMapper.get(ip + value);
-				/*if(null!=user){
-					CookieMapper.remove(ip + value);
-				}*/
+				User user = null ;
+				
+				if("1".equals(SysProperties.get("CookieMapperModel"))){
+					user = CookieMapper.get(ip + value);
+				}else if("2".equals(SysProperties.get("CookieMapperModel"))){
+					user = cookieService.get(ip + value);
+				}
+				
 				return user;
 			}
 		}

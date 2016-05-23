@@ -1,8 +1,5 @@
 package com.zhuani21.blog.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.User;
 import com.zhuani21.blog.data.CookieMapper;
+import com.zhuani21.blog.data.SysProperties;
 import com.zhuani21.blog.service.LoginAuthService;
+import com.zhuani21.blog.sqlite.service.CookieService;
 import com.zhuani21.blog.util.WConstant;
 import com.zhuani21.blog.util.WebRequestUtils;
 
@@ -25,6 +24,8 @@ import com.zhuani21.blog.util.WebRequestUtils;
 public class LoginAuthController {
 	@Autowired
 	LoginAuthService loginAuthService;
+	@Autowired
+	CookieService cookieService;
 	
 	
 	@RequestMapping(value={"/index"})
@@ -44,7 +45,7 @@ public class LoginAuthController {
 		user = checkSession(req.getSession());
 		//2,check cookie
 		if(null==user){
-			user = WebRequestUtils.getUserFromCookie(req);
+			user = WebRequestUtils.getUserFromCookie(req,cookieService);
 		}
 		if(null==user){
 			modelAndView.setViewName("login");
@@ -64,7 +65,7 @@ public class LoginAuthController {
 		user = checkSession(req.getSession());
 		//2,check cookie
 		if(null==user){
-			user = WebRequestUtils.getUserFromCookie(req);
+			user = WebRequestUtils.getUserFromCookie(req,cookieService);
 		}
 		//3,check username & password
 		if(null==user){
@@ -93,7 +94,11 @@ public class LoginAuthController {
 			String ip = WebRequestUtils.getIp(req);
 			if(StringUtils.isNoneBlank(ip) && StringUtils.isNotBlank(sessionId)){
 				addCookie(resp,WConstant.COOKIE_LOGIN_KEY,session.getId());
-				CookieMapper.put(ip+sessionId, user);
+				if("1".equals(SysProperties.get("CookieMapperModel"))){
+					CookieMapper.put(ip+sessionId, user);
+				}else if("2".equals(SysProperties.get("CookieMapperModel"))){
+					cookieService.put(ip+sessionId, user);
+				}
 			}
 		}		
 	}

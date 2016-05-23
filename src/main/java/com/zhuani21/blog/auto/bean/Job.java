@@ -1,5 +1,7 @@
 package com.zhuani21.blog.auto.bean;
 
+import java.util.Date;
+
 public class Job {
     private Integer jobId;
 
@@ -16,6 +18,12 @@ public class Job {
     private String oldFilename;
 
     private String filepath;
+
+    private String cycleSetting;
+
+    private Integer rereadTime;
+
+    private Date createTime;
 
     public Integer getJobId() {
         return jobId;
@@ -79,5 +87,29 @@ public class Job {
 
     public void setFilepath(String filepath) {
         this.filepath = filepath == null ? null : filepath.trim();
+    }
+
+    public String getCycleSetting() {
+        return cycleSetting;
+    }
+
+    public void setCycleSetting(String cycleSetting) {
+        this.cycleSetting = cycleSetting == null ? null : cycleSetting.trim();
+    }
+
+    public Integer getRereadTime() {
+        return rereadTime;
+    }
+
+    public void setRereadTime(Integer rereadTime) {
+        this.rereadTime = rereadTime;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

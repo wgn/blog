@@ -82,7 +82,9 @@
 			<mvc:exclude-mapping path="/libs/**"/>
 			<mvc:exclude-mapping path="/js/**"/>
 			<mvc:exclude-mapping path="/css/**"/>
-			<bean class="com.zhuani21.blog.interceptor.LoginInterceptor"></bean>
+			<bean class="com.zhuani21.blog.interceptor.LoginInterceptor">
+				<property name="cookieService" ref="cookieService"></property>
+			</bean>
 		</mvc:interceptor>
 		<mvc:interceptor>
 			<mvc:mapping path="/user/**"/>

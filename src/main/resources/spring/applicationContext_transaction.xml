@@ -14,8 +14,37 @@
 		http://www.springframework.org/schema/tx/spring-tx.xsd ">
 		
 		<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-			<property name="dataSource" ref="dataSource"></property>
+			<property name="dataSource" ref="mysqlDataSource"></property>
 		</bean>
+		
+		<bean id="sqliteTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+			<property name="dataSource" ref="sqliteDataSource"></property>
+		</bean>
+		<tx:advice id="sqliteTxAdvice" transaction-manager="sqliteTransactionManager">
+			<tx:attributes>
+			  
+				<tx:method name="save*" propagation="REQUIRED"/>
+				<tx:method name="insert*" propagation="REQUIRED"/>
+				<tx:method name="add*" propagation="REQUIRED"/>
+				<tx:method name="delete*" propagation="REQUIRED"/>
+				<tx:method name="update*" propagation="REQUIRED"/>
+				<tx:method name="modify*" propagation="REQUIRED"/>
+				<tx:method name="remove*" propagation="REQUIRED"/>
+				<tx:method name="batchSave*" propagation="REQUIRED"/>
+				<tx:method name="batchInsert*" propagation="REQUIRED"/>
+				<tx:method name="batchDelete*" propagation="REQUIRED"/>
+				<tx:method name="batchUpdate*" propagation="REQUIRED"/>
+				<tx:method name="batchModify*" propagation="REQUIRED"/>
+				<tx:method name="batchRemove*" propagation="REQUIRED"/>
+				<tx:method name="select*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="find*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="query*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="get*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="check*" propagation="SUPPORTS" read-only="true"/>
+				<tx:method name="is*" propagation="SUPPORTS" read-only="true"/>
+			</tx:attributes>
+		</tx:advice>
+		
 		<tx:advice id="txAdvice" transaction-manager="transactionManager">
 			<tx:attributes>
 			  
@@ -43,6 +72,8 @@
 		
 		<aop:config>
 			<aop:pointcut expression="execution(* com.zhuani21.blog.service..*.*(..))" id="txPointcut"/>
+			<aop:pointcut expression="execution(* com.zhuani21.blog.sqlite.service..*.*(..))" id="sqlitePointcut"/>
 			<aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut" />
-		</aop:config>		
+			<aop:advisor advice-ref="sqliteTxAdvice" pointcut-ref="sqlitePointcut" />
+		</aop:config>	
 </beans>

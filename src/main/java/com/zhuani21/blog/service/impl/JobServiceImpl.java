@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.zhuani21.blog.auto.bean.Job;
+import com.zhuani21.blog.auto.bean.JobExample;
 import com.zhuani21.blog.auto.mapper.JobMapper;
 import com.zhuani21.blog.bean.JobCustom;
 import com.zhuani21.blog.service.JobService;
@@ -34,4 +35,19 @@ public class JobServiceImpl implements JobService {
 		jobMapper.insert(job);
 	}
 
+	@Override
+	public void updateJob(JobCustom job) {
+		jobMapper.updateByPrimaryKey(job);
+	}
+
+	@Override
+	public String findOriginalFileNameByFilePath(String name) {
+		JobExample example = new JobExample();
+		example.createCriteria().andFilepathEqualTo(name);
+		List<Job> jobList = jobMapper.selectByExample(example);
+		if(null!=jobList && jobList.size()==1){
+			return jobList.get(0).getOldFilename();
+		}
+		return null;
+	}
 }

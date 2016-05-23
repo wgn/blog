@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhuani21.blog.sqlite.dao.CookieDao" >
+
+ 	<select id="selectUserByCookieKey" resultType="com.zhuani21.blog.auto.bean.User" parameterType="string">
+ 		select * from CookieUserMapper where mapper_key = #{mapper_key }
+ 	</select>
+ 	<insert id="insertCookieUser"  parameterType="com.zhuani21.blog.bean.CookieUser">
+ 		insert into CookieUserMapper (mapper_id,mapper_key,id,nickname,sex,birthday,address,email,mobile) 
+ 		values(#{mapper_id},#{mapper_key},#{id},#{nickname},#{sex},#{birthday},#{address},#{email},#{mobile})
+ 	</insert>
+ 	<delete id="deleteCookieUserByUserId"  parameterType="int">
+ 		delete from CookieUserMapper where id = #{userId }
+ 	</delete>
+ 	
+</mapper>

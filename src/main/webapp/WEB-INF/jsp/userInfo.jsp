@@ -69,7 +69,7 @@
 					</tr>
 					<tr>
 						<td>密码：</td>
-						<td>${requestScope.userMimi.password }</td>
+						<td><span hidden="true">${requestScope.userMimi.password }</span></td>
 					</tr>
 					<tr>
 						<td>新密码：</td>

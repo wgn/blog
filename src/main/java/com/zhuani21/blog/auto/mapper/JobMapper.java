@@ -1,10 +1,9 @@
 package com.zhuani21.blog.auto.mapper;
 
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
-
 import com.zhuani21.blog.auto.bean.Job;
 import com.zhuani21.blog.auto.bean.JobExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface JobMapper {
     int countByExample(JobExample example);

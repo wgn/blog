@@ -8,10 +8,20 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.User;
+import com.zhuani21.blog.sqlite.service.CookieService;
 import com.zhuani21.blog.util.WConstant;
 import com.zhuani21.blog.util.WebRequestUtils;
 
 public class LoginInterceptor implements HandlerInterceptor {
+	
+	CookieService cookieService;
+	public CookieService getCookieService() {
+		return cookieService;
+	}
+
+	public void setCookieService(CookieService cookieService) {
+		this.cookieService = cookieService;
+	}
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
@@ -21,9 +31,10 @@ public class LoginInterceptor implements HandlerInterceptor {
 		User user = (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
 		
 		if(null==user){
-			user = WebRequestUtils.getUserFromCookie(request);
-			
-			session.setAttribute(WConstant.SESSION_LOGIN_USER, user);
+			user = WebRequestUtils.getUserFromCookie(request,cookieService);
+			if(null!=user){
+				session.setAttribute(WConstant.SESSION_LOGIN_USER, user);
+			}
 		}
 		
 		if(null!=user){

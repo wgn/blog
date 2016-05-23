@@ -11,4 +11,8 @@ public interface JobService {
 	public JobCustom queryJobById(Integer id);
 
 	public void insertJob(JobCustom job);
+
+	public void updateJob(JobCustom job);
+
+	public String findOriginalFileNameByFilePath(String name);
 }

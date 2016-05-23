@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhuani21.blog.sqlite.dao.DbActionDao" >
+
+ 	<update id="createTable" parameterType="com.zhuani21.blog.sqlite.vo.DbActionVo">
+ 		${createTableString}
+ 	</update>
+ 	<select id="selectTables" resultType="string">
+ 		SELECT name FROM sqlite_master WHERE type='table' order by name
+ 	</select>
+ 	<select id="selectCookieUserMapperData" resultType="com.zhuani21.blog.bean.CookieUser">
+ 		select * from CookieUserMapper
+ 	</select>
+</mapper>
