@@ -70,7 +70,7 @@
 					</table>
 					<input type="hidden" name="originalOldFile" value="${job.oldFilename }"/>
 					<input type="hidden" name="originalFilePath" value="${job.filepath }"/>
-					<input type="hidden" name="createTime" value="${job.createTime }"/>
+					<input type="hidden" name="createTime" value='<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"  value="${job.createTime}" />'/>
 				</form>
 			</div>
 		</div>

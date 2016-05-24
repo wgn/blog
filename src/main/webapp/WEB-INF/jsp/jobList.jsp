@@ -43,18 +43,18 @@
 						</thead>
 						<tbody>
 							<c:forEach items="${jobList }" var="job">
-								<tr>
+								<tr id="tr_${job.jobId }">
 									<td hidden="hidden">${job.jobId }</td>
 									<td>${job.jobName }</td>
 									<td>${job.jobCycleType}</td>
 									<td>${job.jobDescription }</td>
-									<td><c:if test="${job.jobLink!=null }"><a target="_blank" href="${job.jobLink }">GOGOGO</a></c:if></td>
+									<td><c:if test="${job.jobLink!=null }"><a target="_blank" href="${job.jobLink }">OPEN</a></c:if></td>
 									<td>${job.jobStatus }</td>
 									<td><c:if test="${job.filepath!=null }"><a target="_blank" href="/job/download/${job.filepath }">DOWNLOAD</a></c:if></td>
 									<td></td>
 									<td><a href="${pageContext.request.contextPath }/job/add/${job.jobId}">新增</a> | 
 									<a href="${pageContext.request.contextPath }/job/edit/${job.jobId}">修改</a> | 
-									<a href="${pageContext.request.contextPath }/job/delete/${job.jobId}">修改</a></td>
+									<a href="javascript:void(0)" onclick="deleteJob(${job.jobId})">删除</a></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -64,5 +64,40 @@
 		</div>
 	</div>
 <%@include file="./include/bottomResource.jsp" %>
+<script type="text/javascript">
+var initContextPath = "${pageContext.request.contextPath }";
+var contextPath = "/";
+
+function deleteJob(jobId){
+	console.log(this);
+	if(jobId){
+		 $.ajax({
+		 	type: "POST",
+		 	url:contextPath + '/job/delete/'+jobId,
+		 	contentType:"application/json;charset=utf-8", 
+		    error: function(request) {
+		        alert(" 发生未知错误 ");
+		    },
+		    success: function(data) {
+		    	if(data){
+		    		console.log(data);
+		    		if(data.result){
+		    			alert("删除成功");
+		    			var deleteTr = document.getElementById("tr_" + jobId);
+		    			if(deleteTr){
+		    				deleteTr.parentNode.removeChild(deleteTr);
+		    			}
+		    		}else{
+		    			alert("发生了未知错误，请联系管理员");
+		    		}
+				}
+		    }
+		}); 
+	}
+}
+$(document).ready(function() { 
+	contextPath = initContextPath;
+}); 
+</script>
 </body>
 </html>

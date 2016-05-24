@@ -20,6 +20,7 @@
 					<tr><td><a href="blog/index">日小记</a></td></tr>
 					<tr><td><a href="monitoring">监控</a></td></tr>
 					<tr><td><a href="dbaction/tableList">SQLite</a><br/>
+					<tr><td><a href="debug/index">Debug Index</a><br/>
 				</tr>
 				</table>
 			</div>

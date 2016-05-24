@@ -39,17 +39,8 @@ public class T {
 	}
 
 	public static void main(String[] args) {
-		for (int i = 0; i < 100; i++) {
-			Thread t = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					System.out.println(genOrdId16());
-
-				}
-			});
-			t.start();
-		}
+		String os = System.getProperty("os.name");  
+		System.out.println(os);
 	}
 
 }

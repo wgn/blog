@@ -2,7 +2,6 @@ package com.zhuani21.blog.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,15 +16,16 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.Job;
 import com.zhuani21.blog.bean.JobCustom;
+import com.zhuani21.blog.bean.PublicVO;
 import com.zhuani21.blog.data.SysProperties;
 import com.zhuani21.blog.service.JobService;
 import com.zhuani21.blog.util.BeanCopyUtils;
-import com.zhuani21.blog.util.WConstant;
 
 @Controller
 @RequestMapping("/job")
@@ -44,16 +44,39 @@ public class JobController {
 		modelAndView.setViewName("jobList");
 		return modelAndView;
 	}
+	@RequestMapping("/t/list")
+	public ModelAndView jobTraceList() throws Exception{
+		ModelAndView modelAndView = new ModelAndView();
+		return modelAndView;
+	}
 	
 	@RequestMapping(value={"/add/{id}"},method={RequestMethod.GET})
 	public ModelAndView addView(@PathVariable Integer id) throws Exception {
 		String opType = "add";
 		return addAndEditView(id, opType);
 	}
+	@RequestMapping(value={"/add"},method={RequestMethod.GET})
+	public ModelAndView addView() throws Exception {
+		String opType = "add";
+		return addAndEditView(null, opType);
+	}
 	@RequestMapping(value={"/edit/{id}"},method={RequestMethod.GET})
 	public ModelAndView editView(@PathVariable Integer id) throws Exception {
 		String opType = "edit";
 		return addAndEditView(id, opType);
+	}
+	
+	@RequestMapping(value={"/delete/{id}"},method={RequestMethod.POST})
+	public @ResponseBody PublicVO delete(@PathVariable Integer id){
+		if(null!=id){
+			PublicVO vo = new PublicVO();
+			int i = jobService.deleteJobById(id);
+			if(i>0){
+				vo.setResult(true);
+			}
+			return vo;
+		}
+		return null;
 	}
 
 	private ModelAndView addAndEditView(Integer id, String opType) {
@@ -149,7 +172,8 @@ public class JobController {
 	    			if(null==originalFileName){
 	    				originalFileName = f.getName();
 	    			}
-	    		    headers.setContentDispositionFormData("attachment", originalFileName);
+	    			
+	    		    headers.setContentDispositionFormData("attachment", java.net.URLEncoder.encode(originalFileName, "UTF-8"));
 	    			
 	    			return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(f),  
 	    	    			headers, HttpStatus.CREATED);  

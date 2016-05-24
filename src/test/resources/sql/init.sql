@@ -46,19 +46,32 @@ insert into code (type,code,name) values ('sex','0','女');
 insert into code (type,code,name) values ('sex','1','男');
 ###################################################################
 #创建job表
- CREATE TABLE `job` (
+CREATE TABLE `job` (
    `job_id` int(16) NOT NULL AUTO_INCREMENT,
-   `job_name` varchar(128) DEFAULT NULL COMMENT '作业名称',
-   `job_cycle_type` varchar(35) DEFAULT NULL COMMENT '作业周期类型,周期表的外键',
-   `job_description` varchar(256) DEFAULT NULL COMMENT '作业描述',
-   `job_link` varchar(512) DEFAULT NULL COMMENT '外部链接',
-   `job_status` varchar(64) DEFAULT NULL COMMENT '作业状态（进度）',
-   `old_filename` varchar(256) DEFAULT NULL COMMENT '文件原名',
-   `filepath` varchar(256) DEFAULT NULL COMMENT '地址（上传文件，下载作业）',
+   `job_name` varchar(128) COLLATE utf8_bin DEFAULT NULL COMMENT '作业名称',
+   `job_cycle_type` varchar(35) COLLATE utf8_bin DEFAULT NULL COMMENT '作业周期类型,周期表的外键',
+   `job_description` varchar(256) COLLATE utf8_bin DEFAULT NULL COMMENT '作业描述',
+   `job_link` varchar(512) COLLATE utf8_bin DEFAULT NULL COMMENT '外部链接',
+   `job_status` varchar(64) COLLATE utf8_bin DEFAULT NULL COMMENT '作业状态（进度）',
+   `old_filename` varchar(256) COLLATE utf8_bin DEFAULT NULL COMMENT '文件原名',
+   `filepath` varchar(256) COLLATE utf8_bin DEFAULT NULL COMMENT '地址（上传文件，下载作业）',
+   `cycle_setting` varchar(256) COLLATE utf8_bin DEFAULT NULL COMMENT '周期设置（周期复习类型）',
+   `reread_time` int(8) DEFAULT NULL COMMENT '多少天后重读（远期重读类型）',
+   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
    PRIMARY KEY (`job_id`)
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_bin;
+ ) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 ###################################################################
-#创建sub_task表(未执行) 增加了task表，自动根据blog_type生产sub_type的数据。
+CREATE TABLE `job_trace` (
+   `id` int(16) NOT NULL AUTO_INCREMENT,
+   `job_id` int(16) NOT NULL COMMENT '作业id',
+   `job_cycle_type` varchar(35) COLLATE utf8_bin DEFAULT NULL COMMENT '作业周期类型,周期表的外键',
+   `step` varchar(35) COLLATE utf8_bin DEFAULT NULL  COMMENT '进度',
+   `status` varchar(8) COLLATE utf8_bin NOT NULL DEFAULT 'now' COMMENT 'now-当前；pass-已经完成',
+   `plan_time`  timestamp NOT NULL COMMENT '计划时间',
+   `finish_time`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '完成时间',
+   `comment` varchar(256) DEFAULT NULL COMMENT'注释',
+   PRIMARY KEY (`id`)
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
 ###################################################################
 #创建复习类型表blog_type(未执行)
 ###################################################################

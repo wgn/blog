@@ -15,4 +15,6 @@ public interface JobService {
 	public void updateJob(JobCustom job);
 
 	public String findOriginalFileNameByFilePath(String name);
+
+	public int deleteJobById(Integer id);
 }
