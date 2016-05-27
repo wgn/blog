@@ -2,6 +2,8 @@ package com.zhuani21.blog.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -21,10 +23,13 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.auto.bean.Job;
+import com.zhuani21.blog.auto.bean.JobTrace;
 import com.zhuani21.blog.bean.JobCustom;
 import com.zhuani21.blog.bean.PublicVO;
 import com.zhuani21.blog.data.SysProperties;
+import com.zhuani21.blog.exception.BlogBaseException;
 import com.zhuani21.blog.service.JobService;
+import com.zhuani21.blog.service.JobTraceService;
 import com.zhuani21.blog.util.BeanCopyUtils;
 
 @Controller
@@ -33,6 +38,8 @@ public class JobController {
 	
 	@Autowired
 	JobService jobService;
+	@Autowired
+	JobTraceService jobTraceService;
 
 	@RequestMapping("/list")
 	public ModelAndView list() throws Exception {
@@ -100,9 +107,85 @@ public class JobController {
 	    job.setJobId(null);
 	    
 	    jobService.insertJob(job);
+	    
+	    JobTrace jobTrace = createJobTrace(job);
+	    if(null!=jobTrace){
+	    	//jobTraceService.insertJobTrace(jobTrace);
+	    }
 		return "redirect:/job/list";
 	}
 
+	private JobTrace createJobTrace(JobCustom job) {
+		if(null!=job && null!=job.getJobId()){
+			JobTrace jobTrace = new JobTrace();
+			jobTrace.setJobId(job.getJobId());
+			jobTrace.setJobCycleType(job.getJobCycleType());
+			
+			Date planTime = null;
+			planTime = calcPlanTime(job);
+			if(null==planTime){
+				throw new BlogBaseException("无法计算作业开始的时间");
+			}
+			jobTrace.setPlanTime(planTime);
+			
+			jobTrace.setStatus("now");
+			jobTrace.setFinishTime(null);
+			
+			jobTrace.setStep("1");
+			return jobTrace;
+		}
+		return null;
+	}
+	/**
+	 * 计算第一次作业的开始时间
+	 * 根据类型不同分别处理
+	 * 
+	 * @param job - 使用对象中的jobCycleType以及不同type对应的值
+	 * @return Date - 开始的时间
+	 */
+	private Date calcPlanTime(JobCustom job) {
+		Integer jobId = job.getJobId();
+		if(null!=jobId){
+			List<JobTrace> jobTraceList = jobTraceService.selectJobTraceListByJobId(jobId);
+			if(null!=jobTraceList && jobTraceList.size()>0){
+				for(JobTrace jobTrace : jobTraceList){
+					if("now".equals(jobTrace.getStatus())){
+						
+					}
+				}
+			} else{
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(job.getCreateTime());
+				if("review".equals(job.getJobCycleType())){
+					String cycleString = job.getCycleSetting();
+					if(StringUtils.isBlank(cycleString)){
+						return null;
+					}
+					String [] intervalDays = cycleString.split(",");
+					if(intervalDays!=null && intervalDays.length>0){
+						String firstStep  = intervalDays[0];
+						Float firstStepNo = Float.parseFloat(firstStep);
+						int hours = (int) (firstStepNo * 24);
+						
+						calendar.add(Calendar.HOUR, hours);
+						return calendar.getTime();
+					}
+				}else if("reread".equals(job.getJobCycleType())){
+					Integer days = job.getRereadTime();
+					if(null==days || days==0){
+						return null;
+					}
+					
+					calendar.add(Calendar.DAY_OF_MONTH, days);
+					return calendar.getTime();
+				}
+			}
+		}
+		
+		return null;
+	}
+	
+	
 	private String[] saveFile(MultipartFile jobFile, String newFileDir) throws IOException {
 		String[] names = null;
 		if(StringUtils.isBlank(newFileDir) || jobFile==null){

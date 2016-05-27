@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zhuani21.blog.dao.JobDao">
+	<insert id="insert" parameterType="com.zhuani21.blog.auto.bean.Job" useGeneratedKeys="true" keyProperty="jobId">
+		insert into job (job_name, job_cycle_type,
+		job_description, job_link, job_status,
+		old_filename, filepath, cycle_setting,
+		reread_time, create_time)
+		values (#{jobName,jdbcType=VARCHAR},
+		#{jobCycleType,jdbcType=VARCHAR},
+		#{jobDescription,jdbcType=VARCHAR}, #{jobLink,jdbcType=VARCHAR}, #{jobStatus,jdbcType=VARCHAR},
+		#{oldFilename,jdbcType=VARCHAR}, #{filepath,jdbcType=VARCHAR},
+		#{cycleSetting,jdbcType=VARCHAR},
+		#{rereadTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+	</insert>
+</mapper>

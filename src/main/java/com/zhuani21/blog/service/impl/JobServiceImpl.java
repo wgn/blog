@@ -10,12 +10,15 @@ import com.zhuani21.blog.auto.bean.Job;
 import com.zhuani21.blog.auto.bean.JobExample;
 import com.zhuani21.blog.auto.mapper.JobMapper;
 import com.zhuani21.blog.bean.JobCustom;
+import com.zhuani21.blog.dao.JobDao;
 import com.zhuani21.blog.service.JobService;
 @Service("jobService")
 public class JobServiceImpl implements JobService {
 	
 	@Autowired
 	private JobMapper jobMapper;
+	@Autowired
+	private JobDao jobDao;
 
 	@Override
 	public List<Job> queryJobList() throws Exception {
@@ -32,7 +35,7 @@ public class JobServiceImpl implements JobService {
 
 	@Override
 	public void insertJob(JobCustom job) {
-		jobMapper.insert(job);
+		jobDao.insert(job);
 	}
 
 	@Override

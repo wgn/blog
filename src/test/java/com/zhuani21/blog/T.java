@@ -1,6 +1,8 @@
 package com.zhuani21.blog;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class T {
@@ -38,9 +40,19 @@ public class T {
 		return orderNum;
 	}
 
-	public static void main(String[] args) {
-		String os = System.getProperty("os.name");  
-		System.out.println(os);
+	public static void main(String[] args) throws Exception {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date d = sdf.parse("2016-05-26 10:18:18");
+		Calendar c = Calendar.getInstance();
+		c.setTime(d);
+		c.add(Calendar.DATE, 14);
+		Date nd = c.getTime();
+		System.out.println(sdf.format(nd));
+		System.out.println(c.get(Calendar.DATE));
+		System.out.println(c.get(Calendar.DAY_OF_MONTH));
+		System.out.println(c.get(Calendar.DAY_OF_WEEK));
+		System.out.println(c.get(Calendar.DAY_OF_WEEK_IN_MONTH));
+		System.out.println(c.get(Calendar.DAY_OF_YEAR));
 	}
 
 }
