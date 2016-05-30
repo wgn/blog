@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 
 public class SQLiteJDBC {
 	public static void main(String args[]) {
+		@SuppressWarnings("unused")
 		Connection c = null;
 		try {
 			Class.forName("org.sqlite.JDBC");

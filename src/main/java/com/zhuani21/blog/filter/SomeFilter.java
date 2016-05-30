@@ -12,14 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.log4j.Logger;
-
 import com.zhuani21.blog.auto.bean.User;
 import com.zhuani21.blog.util.WConstant;
 
 public class SomeFilter implements Filter{
 	
-	private static Logger logger = Logger.getLogger(SomeFilter.class);
+	//private static Logger logger = Logger.getLogger(SomeFilter.class);
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {

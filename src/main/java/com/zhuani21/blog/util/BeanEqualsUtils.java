@@ -26,7 +26,8 @@ public class BeanEqualsUtils {
 			for(Method method :methods){
 				String mname = method.getName();
 				if(mname.startsWith("get")){
-					sb.append(mname).append("#").append(method.invoke(t, null));
+					Object[] paramArray = null;
+					sb.append(mname).append("#").append(method.invoke(t, paramArray));
 				}
 			}
 		}

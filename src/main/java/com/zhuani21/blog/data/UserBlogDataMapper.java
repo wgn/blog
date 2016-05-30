@@ -15,7 +15,7 @@ public class UserBlogDataMapper {
 
 	static {
 		String blogFilePath = SerializeObject.getBlogFilePath();
-		String fileName = "admin." + SerializeObject.BLOG_FILE_NAME;
+		//String fileName = "admin." + SerializeObject.BLOG_FILE_NAME;
 		File dir = new File(blogFilePath);
 		// File dir = new File("\\C:\\Users\\vuclip111\\Desktop");
 		if (dir.isDirectory()) {

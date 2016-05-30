@@ -40,7 +40,14 @@ public class SerializeObject {
 		}
 
 	}
-
+	/**
+	 * 反序列化获取对象，返回类型为T的对象。
+	 * 这里的unchecked注解只是为了去掉警告，事实上类型一致的责任在调用者手上，例如无法将一个Student转换为Teacher
+	 * @param t - 没有使用，使用的是t的类型
+	 * @param fileName - 序列化文件
+	 * @return  T的一个对象
+	 */
+	@SuppressWarnings("unchecked")
 	public static<T> T deserialize(T t,String fileName) {
 		File f = new File(filePath + fileName);
 		if (!f.exists()) {

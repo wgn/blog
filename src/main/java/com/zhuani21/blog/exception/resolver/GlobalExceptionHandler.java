@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException;
 import com.zhuani21.blog.exception.BlogBaseException;
 
 public class GlobalExceptionHandler implements HandlerExceptionResolver {

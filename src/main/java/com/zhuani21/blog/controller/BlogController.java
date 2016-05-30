@@ -7,7 +7,6 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,7 +27,7 @@ import com.zhuani21.blog.util.WDate;
 @RequestMapping("/blog")
 public class BlogController {
 
-	private static Logger logger = Logger.getLogger(BlogController.class); 
+	//private static Logger logger = Logger.getLogger(BlogController.class); 
 	@Autowired
 	BlogService blogService;
 	
