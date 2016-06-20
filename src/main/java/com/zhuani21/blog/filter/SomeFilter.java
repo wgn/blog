@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.zhuani21.blog.auto.bean.User;
+import com.zhuani21.blog.util.AuthorizationChecker;
 import com.zhuani21.blog.util.WConstant;
 
 public class SomeFilter implements Filter{
@@ -54,7 +55,7 @@ public class SomeFilter implements Filter{
 		if(path.startsWith("/monitoring")){
 			HttpSession session = req.getSession();
 			User user = (User) session.getAttribute(WConstant.SESSION_LOGIN_USER);
-			if(null!=user && 1==user.getId()){
+			if(AuthorizationChecker.isAdmin(user)){
 				return true;
 			}else {
 				return false;

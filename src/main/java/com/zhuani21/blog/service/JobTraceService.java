@@ -8,4 +8,8 @@ public interface JobTraceService {
 
 	List<JobTrace> selectJobTraceListByJobId(Integer jobId);
 
+	int deleteJobTraceByJobId(Integer id);
+
+	int insertJobTrace(JobTrace jobTrace);
+
 }

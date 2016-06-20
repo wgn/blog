@@ -23,4 +23,16 @@ public class JobTraceServiceImpl implements JobTraceService {
 		return jobTraceMapper.selectByExample(example);
 	}
 
+	@Override
+	public int deleteJobTraceByJobId(Integer jobId) {
+		JobTraceExample example = new JobTraceExample();
+		example.createCriteria().andJobIdEqualTo(jobId);
+		return jobTraceMapper.deleteByExample(example);
+	}
+
+	@Override
+	public int insertJobTrace(JobTrace jobTrace) {
+		return jobTraceMapper.insert(jobTrace);
+	}
+
 }

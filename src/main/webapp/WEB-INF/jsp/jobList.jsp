@@ -69,30 +69,31 @@ var initContextPath = "${pageContext.request.contextPath }";
 var contextPath = "/";
 
 function deleteJob(jobId){
-	console.log(this);
-	if(jobId){
-		 $.ajax({
-		 	type: "POST",
-		 	url:contextPath + '/job/delete/'+jobId,
-		 	contentType:"application/json;charset=utf-8", 
-		    error: function(request) {
-		        alert(" 发生未知错误 ");
-		    },
-		    success: function(data) {
-		    	if(data){
-		    		console.log(data);
-		    		if(data.result){
-		    			alert("删除成功");
-		    			var deleteTr = document.getElementById("tr_" + jobId);
-		    			if(deleteTr){
-		    				deleteTr.parentNode.removeChild(deleteTr);
-		    			}
-		    		}else{
-		    			alert("发生了未知错误，请联系管理员");
-		    		}
-				}
-		    }
-		}); 
+	if (confirm("确定删除？")) {
+		if(jobId){
+			 $.ajax({
+			 	type: "POST",
+			 	url:contextPath + '/job/delete/'+jobId,
+			 	contentType:"application/json;charset=utf-8", 
+			    error: function(request) {
+			        alert(" 发生未知错误 ");
+			    },
+			    success: function(data) {
+			    	if(data){
+			    		console.log(data);
+			    		if(data.result){
+			    			alert("删除成功");
+			    			var deleteTr = document.getElementById("tr_" + jobId);
+			    			if(deleteTr){
+			    				deleteTr.parentNode.removeChild(deleteTr);
+			    			}
+			    		}else{
+			    			alert("发生了未知错误，请联系管理员");
+			    		}
+					}
+			    }
+			}); 
+		}
 	}
 }
 $(document).ready(function() { 
