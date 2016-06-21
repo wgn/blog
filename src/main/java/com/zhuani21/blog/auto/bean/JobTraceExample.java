@@ -365,6 +365,66 @@ public class JobTraceExample {
             return (Criteria) this;
         }
 
+        public Criteria andStepValueIsNull() {
+            addCriterion("step_value is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueIsNotNull() {
+            addCriterion("step_value is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueEqualTo(Float value) {
+            addCriterion("step_value =", value, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueNotEqualTo(Float value) {
+            addCriterion("step_value <>", value, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueGreaterThan(Float value) {
+            addCriterion("step_value >", value, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueGreaterThanOrEqualTo(Float value) {
+            addCriterion("step_value >=", value, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueLessThan(Float value) {
+            addCriterion("step_value <", value, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueLessThanOrEqualTo(Float value) {
+            addCriterion("step_value <=", value, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueIn(List<Float> values) {
+            addCriterion("step_value in", values, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueNotIn(List<Float> values) {
+            addCriterion("step_value not in", values, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueBetween(Float value1, Float value2) {
+            addCriterion("step_value between", value1, value2, "stepValue");
+            return (Criteria) this;
+        }
+
+        public Criteria andStepValueNotBetween(Float value1, Float value2) {
+            addCriterion("step_value not between", value1, value2, "stepValue");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;

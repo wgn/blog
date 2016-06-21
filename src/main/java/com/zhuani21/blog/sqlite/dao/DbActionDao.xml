@@ -11,4 +11,7 @@
  	<select id="selectCookieUserMapperData" resultType="com.zhuani21.blog.bean.CookieUser">
  		select * from CookieUserMapper
  	</select>
+ 	<update id="deleteTableData" parameterType="string">
+ 		delete from ${value }
+ 	</update>
 </mapper>

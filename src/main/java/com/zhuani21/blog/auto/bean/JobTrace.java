@@ -11,6 +11,8 @@ public class JobTrace {
 
     private String step;
 
+    private Float stepValue;
+
     private String status;
 
     private Date planTime;
@@ -49,6 +51,14 @@ public class JobTrace {
 
     public void setStep(String step) {
         this.step = step == null ? null : step.trim();
+    }
+
+    public Float getStepValue() {
+        return stepValue;
+    }
+
+    public void setStepValue(Float stepValue) {
+        this.stepValue = stepValue;
     }
 
     public String getStatus() {

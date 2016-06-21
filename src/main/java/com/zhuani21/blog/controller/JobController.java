@@ -188,6 +188,11 @@ public class JobController {
 			jobTrace.setJobId(job.getJobId());
 			jobTrace.setJobCycleType(job.getJobCycleType());
 			jobTrace.setStep("1");
+			Float stepValue = calcStepValue(job);
+			if(null==stepValue || stepValue<=0){
+				throw new BlogBaseException("无法计算作业计划执行的时间");
+			}
+			jobTrace.setStepValue(stepValue);
 			jobTrace.setStatus("now");
 
 			Date planTime = null;
@@ -204,6 +209,35 @@ public class JobController {
 		}
 		return null;
 	}
+	/**
+	 * 计算job的当前进度的跨度（天）。
+	 * 根据这个值可以设置提醒状态。
+	 * 比如当前跨度为10天，那么过期1天完成也算比较正常，但是过期10天或者100天，是否可以考虑重新开始任务了。
+	 * @param job
+	 * @return
+	 */
+	private Float calcStepValue(JobCustom job) {
+		String jobCycleType = job.getJobCycleType();
+		if("reread".equals(jobCycleType)){
+			Integer days = job.getRereadTime();
+			if (null == days || days == 0) {
+				return null;
+			}
+			return days + 0.0f;
+		}else if("review".equals(jobCycleType)){
+			String cycleString = job.getCycleSetting();
+			if (StringUtils.isBlank(cycleString)) {
+				return null;
+			}
+			String[] intervalDays = cycleString.split(",");
+			if (intervalDays != null && intervalDays.length > 0) {
+				String firstStep = intervalDays[0];
+				Float firstStepNo = Float.parseFloat(firstStep);
+				return firstStepNo;
+			}
+		}
+		return null;
+	}
 
 	/**
 	 * 计算第一次作业的开始时间 根据类型不同分别处理
@@ -217,31 +251,11 @@ public class JobController {
 		if (null != jobId) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(job.getCreateTime());
-			if ("review".equals(job.getJobCycleType())) {
-				String cycleString = job.getCycleSetting();
-				if (StringUtils.isBlank(cycleString)) {
-					return null;
-				}
-				String[] intervalDays = cycleString.split(",");
-				if (intervalDays != null && intervalDays.length > 0) {
-					String firstStep = intervalDays[0];
-					Float firstStepNo = Float.parseFloat(firstStep);
-					int hours = (int) (firstStepNo * 24);
-
-					calendar.add(Calendar.HOUR, hours);
-					return calendar.getTime();
-				}
-			} else if ("reread".equals(job.getJobCycleType())) {
-				Integer days = job.getRereadTime();
-				if (null == days || days == 0) {
-					return null;
-				}
-
-				calendar.add(Calendar.DAY_OF_MONTH, days);
-				return calendar.getTime();
-			}
+			Float stepValue = calcStepValue(job);
+			int hours = (int) (stepValue * 24);
+			calendar.add(Calendar.HOUR, hours);
+			return calendar.getTime();
 		}
-
 		return null;
 	}
 

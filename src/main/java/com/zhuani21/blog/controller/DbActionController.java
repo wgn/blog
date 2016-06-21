@@ -3,6 +3,8 @@ package com.zhuani21.blog.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +20,7 @@ import com.zhuani21.blog.sqlite.vo.DbActionVo;
 @Controller
 @RequestMapping("/dbaction")
 public class DbActionController {
+	private static Logger logger = Logger.getLogger(DbActionController.class);
 
 	@Autowired
 	DbActionService dbActionService;
@@ -58,6 +61,19 @@ public class DbActionController {
 				cookieUserStrList.add(cu.toString());
 			}
 			modelAndView.addObject("dataList", cookieUserStrList);
+		}
+		
+		modelAndView.addObject("tableName", tableName);
+		modelAndView.setViewName("dbActionTableData");
+		return modelAndView;
+	}
+	@RequestMapping("/cleanData/{tableName}")
+	public ModelAndView cleanData(@PathVariable("tableName") String tableName){
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if(StringUtils.isNotBlank(tableName)){
+			Integer n = dbActionService.deleteTableData(tableName);
+			logger.info("删除了 " + tableName + "表的所有数据，共" + n + "条");
 		}
 		
 		modelAndView.addObject("tableName", tableName);

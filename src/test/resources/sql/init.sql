@@ -66,12 +66,13 @@ CREATE TABLE `job_trace` (
    `job_id` int(16) NOT NULL COMMENT '作业id',
    `job_cycle_type` varchar(35) COLLATE utf8_bin DEFAULT NULL COMMENT '作业周期类型,周期表的外键',
    `step` varchar(35) COLLATE utf8_bin DEFAULT NULL  COMMENT '进度',
+   `step_value` float(6,1) COLLATE utf8_bin DEFAULT NULL  COMMENT '当前进度的跨度（天）',
    `status` varchar(8) COLLATE utf8_bin NOT NULL DEFAULT 'now' COMMENT 'now-当前；pass-已经完成',
-   `plan_time`  timestamp NOT NULL COMMENT '计划时间',
-   `finish_time`  timestamp NOT NULL DEFAULT '0000-00-00 00:00:00' COMMENT '完成时间',
+   `plan_time`  datetime NOT NULL COMMENT '计划时间',
+   `finish_time`  datetime DEFAULT null COMMENT '完成时间',
    `comment` varchar(256) DEFAULT NULL COMMENT'注释',
    PRIMARY KEY (`id`)
- ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin
+ ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 ###################################################################
 #创建复习类型表blog_type(未执行)
 ###################################################################

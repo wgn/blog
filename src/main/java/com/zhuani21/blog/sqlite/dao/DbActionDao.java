@@ -9,4 +9,5 @@ public interface DbActionDao {
 	public List<String> selectTables();
 	public void createTable(DbActionVo dbActionVo);
 	public List<CookieUser> selectCookieUserMapperData();
+	public int deleteTableData(String tableName);
 }

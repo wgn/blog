@@ -25,4 +25,8 @@ public class DbActionServiceImpl implements DbActionService {
 	public List<CookieUser> selectCookieUserMapperData() {
 		return dbActionDao.selectCookieUserMapperData();
 	}
+	@Override
+	public Integer deleteTableData(String tableName) {
+		return dbActionDao.deleteTableData(tableName);
+	}
 }

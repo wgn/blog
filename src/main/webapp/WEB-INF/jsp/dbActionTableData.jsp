@@ -60,6 +60,10 @@ overflow:auto;
 			</table>
 			</c:if>
 			<input class="btn btn-default" type="button" onclick="goBack();" value="返回" />
+			<br/><br/>
+			<form name="cleanTableData" action="${pageContext.request.contextPath }/dbaction/cleanData/${tableName }" method="post">
+				<input class="btn btn-default" type="button" onclick="cleanData();" value="清空数据" />
+			</form>
 			</div>
 		</div>
 	</div>
@@ -68,6 +72,12 @@ overflow:auto;
 <script type="text/javascript">
 function goBack(){
 	window.location.href="${pageContext.request.contextPath }/dbaction/tableList";
+}
+function cleanData(tableName){
+	if (confirm("确定清空数据？")) {
+		document.cleanTableData.submit();
+	}
+	return
 }
 </script>
 </body>

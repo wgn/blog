@@ -14,4 +14,5 @@ public interface DbActionService {
 	public List<String> selectTables();
 	public void createTable(DbActionVo dbActionVo);
 	public List<CookieUser> selectCookieUserMapperData();
+	public Integer deleteTableData(String tableName);
 }

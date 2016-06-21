@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.zhuani21.blog.bean.DebugInfoVO;
 import com.zhuani21.blog.bean.PropertyVO;
+import com.zhuani21.blog.data.SysProperties;
 import com.zhuani21.blog.util.PropertiesFileUtils;
 
 @Controller
@@ -48,6 +49,8 @@ public class DebugController {
 				&& StringUtils.isNotBlank(prop.getPropertyValue())){//新属性值不为空
 			PropertiesFileUtils.updateProperty("sys.properties", prop);
 			logger.info("修改sys.properties文件的属性："+prop.getPropertyName()+"，原值：" + propValue + "，新值：" + prop.getPropertyValue());
+			//重新读取sys.properties文件
+			SysProperties.reloadSysProperties();
 		}
 		modelAndView.setViewName("redirect:/debug/index");
 		return modelAndView;
@@ -68,6 +71,8 @@ public class DebugController {
 			prop.setComments(saveComments);
 			PropertiesFileUtils.addProperty("sys.properties", prop);
 			logger.info("修改sys.properties文件.新增属性:"+prop.getPropertyName()+"，值：" + prop.getPropertyValue());
+			//重新读取sys.properties文件
+			SysProperties.reloadSysProperties();
 		}
 		modelAndView.setViewName("redirect:/debug/index");
 		return modelAndView;
