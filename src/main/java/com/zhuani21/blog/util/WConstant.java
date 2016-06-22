@@ -16,6 +16,9 @@ public class WConstant {
 	public static final String OP_TYPE_VIEW;
 	
 	public static final String FILE_DIR;
+	
+	public static final String JOB_CYCLE_TYPE_REREAD;
+	public static final String JOB_CYCLE_TYPE_REVIEW;
 	//以后考虑读取配置文件
 	static{
 		SESSION_LOGIN_USER = "session_login_user";
@@ -24,6 +27,8 @@ public class WConstant {
 		OP_TYPE_EDIT = "edit";
 		OP_TYPE_VIEW = "view";
 		FILE_DIR = "D:\\blogTempFolder\\";
+		JOB_CYCLE_TYPE_REREAD = "reread";
+		JOB_CYCLE_TYPE_REVIEW = "review";
 	}
 	
 	public static void main(String[] args){

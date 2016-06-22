@@ -32,6 +32,7 @@ import com.zhuani21.blog.exception.BlogBaseException;
 import com.zhuani21.blog.service.JobService;
 import com.zhuani21.blog.service.JobTraceService;
 import com.zhuani21.blog.util.BeanCopyUtils;
+import com.zhuani21.blog.util.WConstant;
 
 @Controller
 @RequestMapping("/job")
@@ -99,8 +100,12 @@ public class JobController {
 
 	@RequestMapping(value = { "edit" }, method = { RequestMethod.POST })
 	public String editJob(JobCustom job, MultipartFile jobFile) throws Exception {
+		JobCustom oldJob = jobService.queryJobById(job.getJobId());
+		
 		String[] fileNames = saveFile(jobFile, SysProperties.get("reviewFileUploadFilePath"));
 		if (null != fileNames && fileNames.length == 2) {
+			//如果修改了文件，从新设置文件，并删除原来的文件
+			//原来的文件使用originalFilePath,originalOldFile保存
 			job.setOldFilename(fileNames[0]);
 			job.setFilepath(fileNames[1]);
 			deleteFile(job.getOriginalFilePath(), SysProperties.get("reviewFileUploadFilePath"));
@@ -109,11 +114,11 @@ public class JobController {
 			job.setOldFilename(job.getOriginalOldFile());
 			job.setFilepath(job.getOriginalFilePath());
 		}
-
+		
 		jobService.updateJob(job);
-
-		updateJobTrace(job);
-
+		
+		updateJobTrace(job ,oldJob);
+		
 		return "redirect:/job/edit/" + job.getJobId();
 	}
 
@@ -123,13 +128,15 @@ public class JobController {
 			int jobUpdateCount = 0;
 			int jobTraceUpdateCount = 0;
 			PublicVO vo = new PublicVO();
-			jobUpdateCount = jobService.deleteJobById(id);
-			
-			if (jobUpdateCount > 0) {
-				jobTraceUpdateCount = deleteJobTraceByJobId(id);
-				vo.setResult(true);
+			JobCustom job = jobService.queryJobById(id);
+			if(null!=job){
+				jobUpdateCount = jobService.deleteJobById(id);
+				if (jobUpdateCount > 0) {
+					deleteFile(job.getFilepath(), SysProperties.get("reviewFileUploadFilePath"));
+					jobTraceUpdateCount = deleteJobTraceByJobId(id);
+					vo.setResult(true);
+				}
 			}
-			
 			logger.info("delete job id=" + id + ",delete job count=" + jobUpdateCount + ",jobTrace count=" + jobTraceUpdateCount);
 			return vo;
 		}
@@ -139,9 +146,37 @@ public class JobController {
 	private int deleteJobTraceByJobId(Integer id) {
 		return jobTraceService.deleteJobTraceByJobId(id);
 	}
-
-	private void updateJobTrace(JobCustom job) {
-
+	/**
+	 * 暂时作业计划的修改，都采用删除原来计划，从新生成第一个任务的方式。
+	 * 从新设置了createTime这样任务的计算时间从心开始，但是数据库并没有改变。
+	 * 修改的逻辑其实是很奇怪的，以后考虑禁止修改计划，如果要调整计划，更好的方式是使用该任务作为模版新建任务，并且删除原来的任务。
+	 * @param job
+	 * @param oldJob
+	 */
+	private void updateJobTrace(JobCustom job, JobCustom oldJob) {
+		String jobCycleType = job.getJobCycleType();
+		String oldJobCycleType = oldJob.getJobCycleType();
+		if(!jobCycleType.equals(oldJobCycleType)){
+			jobTraceService.deleteJobTraceByJobId(job.getJobId());
+			job.setCreateTime(new Date());
+			createAndInsertJobTrace(job);
+		}else if(WConstant.JOB_CYCLE_TYPE_REREAD.equals(jobCycleType)){
+			int rereadTime = job.getRereadTime();
+			int oldRereadTime = oldJob.getRereadTime();
+			if(rereadTime!=oldRereadTime){
+				jobTraceService.deleteJobTraceByJobId(job.getJobId());
+				job.setCreateTime(new Date());
+				createAndInsertJobTrace(job);
+			}
+		}else if(WConstant.JOB_CYCLE_TYPE_REVIEW.equals(jobCycleType)){
+			String setting = job.getCycleSetting();
+			String oldSetting = oldJob.getCycleSetting();
+			if(!setting.equals(oldSetting)){
+				jobTraceService.deleteJobTraceByJobId(job.getJobId());
+				job.setCreateTime(new Date());
+				createAndInsertJobTrace(job);
+			}
+		}
 	}
 
 	private void deleteFile(String originalFilePath, String filePath) {
