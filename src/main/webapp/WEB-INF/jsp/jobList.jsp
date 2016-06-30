@@ -51,7 +51,7 @@
 									<td><c:if test="${job.jobLink!=null }"><a target="_blank" href="${job.jobLink }">OPEN</a></c:if></td>
 									<td>${job.jobStatus }</td>
 									<td><c:if test="${job.filepath!=null }"><a target="_blank" href="/job/download/${job.filepath }">DOWNLOAD</a></c:if></td>
-									<td></td>
+									<td><fmt:formatDate value="${job.currentPlanDate }" pattern="yyyy-MM-dd" /></td>
 									<td><a href="${pageContext.request.contextPath }/job/add/${job.jobId}">新增</a> | 
 									<a href="${pageContext.request.contextPath }/job/edit/${job.jobId}">修改</a> | 
 									<a href="javascript:void(0)" onclick="deleteJob(${job.jobId})">删除</a></td>

@@ -1,5 +1,7 @@
 package com.zhuani21.blog.bean;
 
+import java.util.Date;
+
 import org.apache.commons.lang3.StringUtils;
 
 import com.zhuani21.blog.auto.bean.Job;
@@ -9,6 +11,16 @@ public class JobCustom extends Job {
 	//这两个字段是为了更新的时候从前台接收原来的文件名和文件实际名称（filepath）的
 	private String originalOldFile;
 	private String originalFilePath;
+	
+	private Date currentPlanDate;
+
+	public Date getCurrentPlanDate() {
+		return currentPlanDate;
+	}
+
+	public void setCurrentPlanDate(Date currentPlanDate) {
+		this.currentPlanDate = currentPlanDate;
+	}
 
 	public String getOriginalOldFile() {
 		return originalOldFile;

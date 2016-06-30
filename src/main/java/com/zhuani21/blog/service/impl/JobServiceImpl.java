@@ -21,8 +21,8 @@ public class JobServiceImpl implements JobService {
 	private JobDao jobDao;
 
 	@Override
-	public List<Job> queryJobList() throws Exception {
-		return jobMapper.selectByExample(null);
+	public List<JobCustom> queryJobList() throws Exception {
+		return jobDao.selectJobList();
 	}
 
 	@Override

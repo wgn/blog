@@ -48,9 +48,8 @@ public class JobController {
 	@RequestMapping("/list")
 	public ModelAndView list() throws Exception {
 		ModelAndView modelAndView = new ModelAndView();
-		List<Job> jobList = jobService.queryJobList();
-		List<JobCustom> jobCustomList = BeanCopyUtils.getCustomBeanList(jobList, JobCustom.class);
-		modelAndView.addObject("jobList", jobCustomList);
+		List<JobCustom> jobList = jobService.queryJobList();
+		modelAndView.addObject("jobList", jobList);
 		// modelAndView.addObject("fileDir",
 		// SysProperties.get("reviewFileUploadFilePath"));
 		modelAndView.setViewName("jobList");
