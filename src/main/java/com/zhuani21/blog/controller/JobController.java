@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.zhuani21.blog.auto.bean.Job;
 import com.zhuani21.blog.auto.bean.JobTrace;
 import com.zhuani21.blog.bean.JobCustom;
 import com.zhuani21.blog.bean.PublicVO;
@@ -31,7 +31,6 @@ import com.zhuani21.blog.data.SysProperties;
 import com.zhuani21.blog.exception.BlogBaseException;
 import com.zhuani21.blog.service.JobService;
 import com.zhuani21.blog.service.JobTraceService;
-import com.zhuani21.blog.util.BeanCopyUtils;
 import com.zhuani21.blog.util.WConstant;
 
 @Controller
@@ -98,7 +97,7 @@ public class JobController {
 	}
 
 	@RequestMapping(value = { "edit" }, method = { RequestMethod.POST })
-	public String editJob(JobCustom job, MultipartFile jobFile) throws Exception {
+	public String editJob(JobCustom job, MultipartFile jobFile,RedirectAttributes attr) throws Exception {
 		JobCustom oldJob = jobService.queryJobById(job.getJobId());
 		
 		String[] fileNames = saveFile(jobFile, SysProperties.get("reviewFileUploadFilePath"));
@@ -118,6 +117,7 @@ public class JobController {
 		
 		updateJobTrace(job ,oldJob);
 		
+		attr.addFlashAttribute("msg", "修改成功");
 		return "redirect:/job/edit/" + job.getJobId();
 	}
 

@@ -32,6 +32,6 @@
 		select  a.job_id, a.job_name, a.job_cycle_type,  a.job_description,  a.job_link,  a.job_status,  a.old_filename, 
 	     	a.filepath,  a.cycle_setting,  a.reread_time,  a.create_time,b.plan_time 
 	    from job a join job_trace b on (a.job_id=b.job_id)
-	    where b.status='now'
+	    where b.status='now' order by b.plan_time
 	</select>
 </mapper>
