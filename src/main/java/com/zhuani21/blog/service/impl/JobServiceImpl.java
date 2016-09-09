@@ -1,7 +1,11 @@
 package com.zhuani21.blog.service.impl;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,8 +25,25 @@ public class JobServiceImpl implements JobService {
 	private JobDao jobDao;
 
 	@Override
-	public List<JobCustom> queryJobList() throws Exception {
-		return jobDao.selectJobList();
+	public List<JobCustom> queryJobList(String timeRange) throws Exception {
+		Calendar now = Calendar.getInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		if("1".equals(timeRange)){
+			now.add(Calendar.DAY_OF_MONTH, 1);
+		}else if("2".equals(timeRange)){
+			now.add(Calendar.DAY_OF_MONTH, 7);
+		}else if("3".equals(timeRange)){
+			now.add(Calendar.DAY_OF_MONTH, 30);
+		}else {
+			timeRange = null;
+		}
+		if(StringUtils.isNoneBlank(timeRange)){
+			timeRange = sdf.format(now.getTime());
+		}else{
+			timeRange = null;
+		}
+		
+		return jobDao.selectJobList(timeRange);
 	}
 
 	@Override

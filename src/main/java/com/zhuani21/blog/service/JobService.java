@@ -5,7 +5,7 @@ import java.util.List;
 import com.zhuani21.blog.bean.JobCustom;
 
 public interface JobService {
-	public List<JobCustom> queryJobList() throws Exception;
+	public List<JobCustom> queryJobList(String timeRange) throws Exception;
 
 	public JobCustom queryJobById(Integer id);
 

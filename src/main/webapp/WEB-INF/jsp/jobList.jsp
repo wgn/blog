@@ -13,14 +13,15 @@
 		<div class="row">
 			<div class="col-xs-8 col-md-offset-2">
 				<form action="${pageContext.request.contextPath }/job/list" method="post">
-					查询条件：
+					作业操作：
 					<table class="table table-bordered">
 						<tr>
-							<td>类型：</td>
-							<td><select name="codeType">
-									<c:forEach items="${jobTypeSet }" var="jobType">
-										<option value="${jobType }">${jobType }</option>
-									</c:forEach>
+							<td>时间：</td>
+							<td><select class="form-control" name="timeRange">
+								<option value="1">今天</option>
+								<option value="2">7天</option>
+								<option value="3">30天</option>
+								<option value="4">ALL</option>
 							</select></td>
 							<td><input type="submit" value="查询" /></td>
 							<td><a href="${pageContext.request.contextPath }/job/add">新增</a></td>
@@ -38,7 +39,7 @@
 								<th >进度</th>
 								<th >下载作业</th>
 								<th >当前进度日期</th>
-								<th ></th>
+								<th >操作</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -49,7 +50,7 @@
 									<td>${job.jobCycleType}</td>
 									<td>${job.jobDescription }</td>
 									<td><c:if test="${job.jobLink!=null }"><a target="_blank" href="${job.jobLink }">OPEN</a></c:if></td>
-									<td>${job.jobStatus }</td>
+									<td><a href="${pageContext.request.contextPath }/job/progress/${job.jobId}">${job.jobStatus }</a></td>
 									<td><c:if test="${job.filepath!=null }"><a target="_blank" href="/job/download/${job.filepath }">DOWNLOAD</a></c:if></td>
 									<td><fmt:formatDate value="${job.currentPlanDate }" pattern="yyyy-MM-dd" /></td>
 									<td><a href="${pageContext.request.contextPath }/job/add/${job.jobId}">新增</a> | 

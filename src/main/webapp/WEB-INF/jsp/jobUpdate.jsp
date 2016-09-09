@@ -70,6 +70,7 @@
 					</table>
 					<input type="hidden" name="originalOldFile" value="${job.oldFilename }"/>
 					<input type="hidden" name="originalFilePath" value="${job.filepath }"/>
+					<input type="hidden" name="jobStatus" value="${job.jobStatus }"/>
 					<input type="hidden" name="createTime" value='<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"  value="${job.createTime}" />'/>
 				</form>
 			</div>
@@ -77,36 +78,41 @@
 	</div>
 	<%@include file="./include/bottomResource.jsp"%>
 	<script type="text/javascript">
-		function goBack() {
-			window.location.href = "${pageContext.request.contextPath }/job/list";
-		}
-		function save() {
-			if ($("#oldJobFile").val() && $("#jobFile").val()) {
-				if (confirm("确定替换文件？")) {
-					document.jobForm.submit();
-				}
-				return;
+	
+	function goBack() {
+		window.location.href = "${pageContext.request.contextPath }/job/list";
+	}
+	
+	function save() {
+		if ($("#oldJobFile").val() && $("#jobFile").val()) {
+			if (confirm("确定替换文件？")) {
+				document.jobForm.submit();
 			}
-			document.jobForm.submit();
+			return;
 		}
-		function displayDetail(val) {
-			var rrd = document.getElementById("rereadDetail");
-			var rvd = document.getElementById("reviewDetail");
+		document.jobForm.submit();
+	}
+	
+	function displayDetail(val) {
+		var rrd = document.getElementById("rereadDetail");
+		var rvd = document.getElementById("reviewDetail");
 
-			if (val) {
-				if ("reread" == val) {
-					rrd.style.display = '';
-					rvd.style.display = 'none';
-				} else if ("review" == val) {
-					rrd.style.display = 'none';
-					rvd.style.display = '';
-				}
+		if (val) {
+			if ("reread" == val) {
+				rrd.style.display = '';
+				rvd.style.display = 'none';
+			} else if ("review" == val) {
+				rrd.style.display = 'none';
+				rvd.style.display = '';
 			}
 		}
+	}
+	
 	$(document).ready(function(){
 		var cycleType = "${job.jobCycleType }";
 		displayDetail(cycleType);
-	}); 
+	});
+	
 	function useDefautValue(){
 		var csd = document.getElementById("cycleSettingDefaut");
 		var cs = document.getElementById("cycleSetting");

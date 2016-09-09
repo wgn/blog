@@ -12,4 +12,9 @@ public interface JobTraceService {
 
 	int insertJobTrace(JobTrace jobTrace);
 
+	JobTrace queryNowJobTraceByJobId(Integer jobId);
+	
+	JobTrace queryById(Integer id);
+
+	void update(JobTrace jobTrace);
 }

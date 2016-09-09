@@ -28,10 +28,21 @@
 		#{cycleSetting,jdbcType=VARCHAR},
 		#{rereadTime,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
 	</insert>
-	<select id="selectJobList" resultMap="BaseResultMap">
+	<select id="selectJobList" resultMap="BaseResultMap" parameterType="string">
+		select  a.job_id, a.job_name, a.job_cycle_type,  a.job_description,  a.job_link,  a.job_status,  a.old_filename, 
+	     	a.filepath,  a.cycle_setting,  a.reread_time,  a.create_time,b.plan_time 
+	    from job a left join job_trace b on (a.job_id=b.job_id and b.status='now')
+	    <where>
+		    <if test="timeRange != null and timeRange !=''" >
+		        <![CDATA[ DATE(b.plan_time) < ]]>#{timeRange }
+		    </if>
+	    </where>
+	    order by b.plan_time
+	</select>
+	<!-- <select id="selectJobList" resultMap="BaseResultMap">
 		select  a.job_id, a.job_name, a.job_cycle_type,  a.job_description,  a.job_link,  a.job_status,  a.old_filename, 
 	     	a.filepath,  a.cycle_setting,  a.reread_time,  a.create_time,b.plan_time 
 	    from job a join job_trace b on (a.job_id=b.job_id)
 	    where b.status='now' order by b.plan_time
-	</select>
+	</select> -->
 </mapper>
