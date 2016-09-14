@@ -18,10 +18,10 @@
 						<tr>
 							<td>时间：</td>
 							<td><select class="form-control" name="timeRange">
-								<option value="1">今天</option>
-								<option value="2">7天</option>
-								<option value="3">30天</option>
-								<option value="4">ALL</option>
+								<option value="1" <c:if test="${timeRange=='1' }">selected="selected"</c:if>>今天</option>
+								<option value="2" <c:if test="${timeRange=='2' }">selected="selected"</c:if>>7天</option>
+								<option value="3" <c:if test="${timeRange=='3' }">selected="selected"</c:if>>30天</option>
+								<option value="4" <c:if test="${timeRange=='4' || timeRange=='' }">selected="selected"</c:if>>ALL</option>
 							</select></td>
 							<td><input type="submit" value="查询" /></td>
 							<td><a href="${pageContext.request.contextPath }/job/add">新增</a></td>
