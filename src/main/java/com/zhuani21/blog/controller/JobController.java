@@ -19,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
@@ -85,6 +84,8 @@ public class JobController {
 		job.setJobId(null);
 		job.setCreateTime(new Date());
 
+		checkSycleSetting(job.getCycleSetting());
+		
 		initJobStatus(job);
 		
 		jobService.insertJob(job);
@@ -123,9 +124,12 @@ public class JobController {
 			deleteFile(job.getOriginalFilePath(), SysProperties.get("reviewFileUploadFilePath"));
 		} else {
 			// 这里要处理更新时候文件的问题。
-			job.setOldFilename(job.getOriginalOldFile());
-			job.setFilepath(job.getOriginalFilePath());
+			job.setOldFilename(StringUtils.isBlank(job.getOriginalOldFile())?null:job.getOriginalOldFile());
+			job.setFilepath(StringUtils.isBlank(job.getOriginalFilePath())?null:job.getOriginalFilePath());
 		}
+		
+		checkSycleSetting(job.getCycleSetting());
+		
 		updateJobStatus(job,oldJob);
 		
 		jobService.updateJob(job);
@@ -135,7 +139,18 @@ public class JobController {
 		attr.addFlashAttribute("msg", "修改成功");
 		return "redirect:/job/edit/" + job.getJobId();
 	}
-	
+
+	private void checkSycleSetting(String cycleSetting) {
+		try{
+			for(String s : cycleSetting.split(",")){
+				Integer.parseInt(s);
+			}
+		}catch(Exception e){
+			throw new BlogBaseException("周期设置有误，只能是数字，并且以半角英文逗号分割。");
+		}
+		
+	}
+
 	private void updateJobStatus(JobCustom job, JobCustom oldJob) {
 		String jobCycleType = job.getJobCycleType();
 		String oldJobCycleType = oldJob.getJobCycleType();
@@ -187,6 +202,11 @@ public class JobController {
 			return "redirect:/job/progress/" + jobProgressVo.getJobId();
 		}
 		JobTrace jobTrace = jobTraceService.queryById(jobTraceId);
+		Date planTime = jobTrace.getPlanTime();
+		if(planTime.after(finishTime)){
+			attr.addFlashAttribute("msg", "计划复习的时间还没有到。");
+			return "redirect:/job/progress/" + jobProgressVo.getJobId();
+		}
 		
 		if("complete".equals(progressStatus)){
 			//更新job
