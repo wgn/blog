@@ -21,8 +21,8 @@ public class Test {
 			String fileName = f.getName();
 			long fileSize = f.length();
 			long start = System.currentTimeMillis();
-			//String fileMsg = FastMD5.CalFileMd5(f);
-			String fileMsg = CheckSystemFolderSum.checkMd5(f);
+			String fileMsg = FastMD5.CalFileMd5(f);
+			//String fileMsg = CheckSystemFolderSum.checkMd5(f);
 			System.out.println(fileName);
 			System.out.println(FileSizeUtil.humenRead(fileSize));
 			System.out.println(fileMsg);
